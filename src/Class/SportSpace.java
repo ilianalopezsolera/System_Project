@@ -13,15 +13,20 @@ public class SportSpace {
     private String name;
 
     private String type;
+    
+    private boolean availability = true;
 
     private int price;
+    
+    private int spaces = 10;
 
     public SportSpace() {
     }
 
-    public SportSpace(String name, String type, int price) {
+    public SportSpace(String name, String type, boolean availability,int price) {
         this.name = name;
         this.type = type;
+        this.availability = availability;
         this.price = price;
     }
 
@@ -41,6 +46,14 @@ public class SportSpace {
         this.type = type;
     }
 
+    public boolean getAvailability() {
+        return availability;
+    }
+    
+    public void setAvailability(boolean availability){
+        this.availability = availability;
+    }
+
     public int getPrice() {
         return price;
     }
@@ -49,13 +62,28 @@ public class SportSpace {
         this.price = price;
     }
 
-    public void llenarArreglo() {
-
-        System.out.println("Nombre: " + name + ", tipo: " + type + ", precio: " 
-                + price);
-        
+    public int getSpaces() {
+        return spaces;
     }
 
+    public void setSpaces(int spaces) {
+        this.spaces = spaces;
+    }
+    
+    public SportSpace[] fillSportSpace(){
+        SportSpace[] sp = new SportSpace[spaces];
+        sp[0] = new SportSpace("Baloncesto", "Tipo", true, 2000);
+        sp[1] = new SportSpace("Futbol", "Tipo", true, 2000);
+        sp[2] = new SportSpace("Gimnasio", "Tipo", true, 2000);
+        return sp;
+    }
+    
+    public void showAvailability(){
+        
+    }
+    /**
+     * 
+     */
     public void seeAvailability() {
     }
 

@@ -10,8 +10,9 @@ public class User extends Person implements PaymentSystemInterface {
 
     public void seeAvailableList() {
     }
-
-    public void reserveSpecificSpace() {
+    
+    public void deleteReservation(){
+        
     }
 
     @Override

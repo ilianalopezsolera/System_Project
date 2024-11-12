@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Main.java to edit this template
- */
 package Class;
 
 import java.util.*;
@@ -17,18 +13,65 @@ public class Main {
      */
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
-        SportSpace[] sp = new SportSpace[3];
-        sp[0] = new SportSpace("Baloncesto", "Tipo", 2000);
-        sp[1] = new SportSpace("Futbol", "Tipo", 2000);
-        sp[2] = new SportSpace("Gimnasio", "Tipo", 2000);
-
-        for (SportSpace SportSpace : sp) {
-            SportSpace.llenarArreglo();
-        }
+        
+        Admin administrator = new Admin();
+        
+        User user = new User();
+        
+        SportSpace sp = new SportSpace();
+        
+        SportSpace[] listSportSpaces = sp.fillSportSpace();
+        
         System.out.println("1. Español. \n2. English.");
         int op = sc.nextInt();
         switch (op) {
             case 1:
+                System.out.println("1. Usuario. \n2. Administrador");
+                op = sc.nextInt();
+                switch (op) {
+                    case 1:
+                        System.out.println("1. Hacer reserva. "
+                                + "\n2. Eliminar reserva. "
+                                + "\n3. Ver historial. 4. Salir");
+                        op = sc.nextInt();
+                        switch (op){
+                            case 1:
+                                user.makeReservation();
+                                break;
+                            case 2:
+                                user.deleteReservation();
+                                break;
+                            case 3:
+                                user.seeAvailableList();
+                                break;
+                            case 4:
+                                break;
+                            default:
+                                break;
+                        }
+                        break;
+                    case 2:
+                        System.out.println("1. Agregar espacios. "
+                                + "\n2. Modificar espacios. "
+                                + "\n3. Eliminar espacios. \n4. Salir.");
+                                op = sc.nextInt();
+                                switch(op){
+                                    case 1:
+                                        administrator.registerSpaces(listSportSpaces, 10);
+                                        break;
+                                    case 2:
+                                        administrator.modifySpaces();
+                                        break;
+                                    case 3:
+                                        administrator.deleteSpaces();
+                                        break;
+                                    case 4:
+                                        break;
+                                    default:
+                                        break;
+                                }
+                        break;
+                }
                 break;
             case 2:
                 break;

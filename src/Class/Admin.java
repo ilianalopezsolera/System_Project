@@ -11,19 +11,17 @@ public class Admin extends Person {
         this.ID = ID;
     }
     
-    public void addReservation() {
+    public void registerSpaces(SportSpace[] listSportSpace, int spaces) {
+    
     }
 
-    public void removeReservation() {
+    public void modifySpaces() {
     }
 
-    public void modifyReservation() {
+    public void deleteSpaces() {
     }
 
     public void seeListReservation() {
-    }
-
-    public void createSportsSpaces() {
     }
 
     @Override
