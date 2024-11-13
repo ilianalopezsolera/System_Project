@@ -26,6 +26,10 @@ public class Main {
         String IDPerson = "";
         String spaceName;
 
+        for (int i = 0; i < listSpaces.length; i++) {
+            System.out.println("----------------------------------------------------------------------------------------------------");
+            System.out.println(listSpaces[i]);
+        }
         System.out.println("----- SISTEMA DE ESPACIOS DEPORTIVOS -----");
         System.out.println("1. Español. 2. English.");
         option = scanner.nextInt();
@@ -48,12 +52,13 @@ public class Main {
                                 System.out.println("1. Estudiante. "
                                         + "\n2. Personal.");
                                 option = scanner.nextInt();
+                                scanner.nextLine();
                                 switch (option) {
                                     case 1:
                                         System.out.println("----- ESTUDIANTE UCR ------");
                                         System.out.print("Digite el nombre "
                                                 + "del espacio a reservar: ");
-                                        spaceName = scanner.next();
+                                        spaceName = scanner.nextLine().trim();
                                         if (sportSpace.seeAvailability(listSpaces, spaceName) == true) {
                                             System.out.println("1. Confirmar reserva. \n2. Salir.");
                                             option = scanner.nextInt();

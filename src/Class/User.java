@@ -15,11 +15,13 @@ public class User extends Person {
         super(name, IDPerson, contact);
     }
 
-    public void makeReservation(SportSpace[] sportSpaces, String spaceName) {
+    public void makeReservation(SportSpace[] sportSpaces, String spaceName, String file) {
         for (int i = 0; i < sportSpaces.length; i++) {
             if (sportSpaces[i].getName().equals(spaceName)) {  // Verifica el nombre del espacio
                 if (sportSpaces[i].getAvailability()) {  // Verifica si el espacio está disponible
-                    sportSpaces[1].setAvailability(false);
+                    System.out.println("Espacios disponibles");
+                    System.out.println(sportSpaces[i]);
+                    //sportSpaces[1].setAvailability(false);
                 }
             }
         }

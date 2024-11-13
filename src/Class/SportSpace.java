@@ -99,21 +99,26 @@ public class SportSpace {
         }
     }
 
-    public boolean seeAvailability(SportSpace[] sportSpaces, String spaceName) {
-        for (int i = 0; i < sportSpaces.length; i++) {
-            if (sportSpaces[i].getName().equals(spaceName)) {  // Verifica el nombre del espacio
-                if (sportSpaces[i].availability) {  // Verifica si el espacio está disponible
-                    System.out.println("El espacio " + spaceName + " se encuentra disponible.");
-                    return true;  // Retorna true si la reserva fue exitosa
-                } else {
-                    System.out.println("El espacio ya está reservado.");
-                    return false;  // Retorna false si el espacio ya está reservado
-                }
+  public boolean seeAvailability(SportSpace[] sportSpaces, String spaceName) {
+    boolean found = false;  // Variable para registrar si encuentra espacios disponibles
+    
+    for (int i = 0; i < sportSpaces.length; i++) {
+        if (sportSpaces[i].getName().trim().equalsIgnoreCase(spaceName)) {  // Verifica el nombre del espacio
+            if (sportSpaces[i].availability) {  // Verifica si el espacio está disponible
+                System.out.println("----------------------------------------------------------------------------------------------------");
+                System.out.println("Espacio disponible: " + sportSpaces[i]);
+                found = true;  // Marca que encontró al menos un espacio disponible
             }
         }
-        System.out.println("Espacio no encontrado.");
-        return false;  // Retorna false si el espacio no existe en el arreglo
     }
+    
+    if (!found) {
+        System.out.println("No hay espacios disponibles con el nombre '" + spaceName + "'.");
+    }
+    
+    return found;
+}
+
 
     @Override
     public String toString() {
