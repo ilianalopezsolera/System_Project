@@ -64,6 +64,13 @@ public class SportSpace {
         sp[0] = new SportSpace("Baloncesto", "Tipo", true);
         sp[1] = new SportSpace("Futbol", "Tipo", false);
         sp[2] = new SportSpace("Gimnasio", "Tipo", true);
+        sp[3] = new SportSpace("Baloncesto", "Tipo", true);
+        sp[4] = new SportSpace("Futbol", "Tipo", false);
+        sp[5] = new SportSpace("Gimnasio", "Tipo", true);
+        sp[6] = new SportSpace("Baloncesto", "Tipo", true);
+        sp[7] = new SportSpace("Futbol", "Tipo", false);
+        sp[8] = new SportSpace("Gimnasio", "Tipo", true);
+        sp[9] = new SportSpace("Gimnasio", "Tipo", true);
         return sp;
     }
     

@@ -12,7 +12,6 @@ public class Main {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-
         Admin administrator = new Admin();
         SportSpace sp = new SportSpace();
         SportSpace[] listSportSpaces = sp.fillSportSpace();
@@ -20,109 +19,125 @@ public class Main {
         int option;
         Scanner scanner = new Scanner(System.in);
 
-        String name = scanner.nextLine();
-        String carnet = scanner.nextLine();
-        long number = scanner.nextInt();
-        String correo = scanner.nextLine();
-        String IDPerson = scanner.nextLine();
+        String name;
+        String carnet;
+        long number;
+        String correo;
+        String IDPerson = "";
+        String spaceName;
 
-        System.out.println("si corre");
-        System.out.println("1. Español. \n2. English.");
+        System.out.println("----- SISTEMA DE ESPACIOS DEPORTIVOS -----");
+        System.out.println("1. Español. 2. English.");
         option = scanner.nextInt();
+        
         switch (option) {
             case 1:
+                System.out.println("----- TIPO DE USUARIO -----");
                 System.out.println("1. Usuario. \n2. Administrador");
+                option = scanner.nextInt();
                 switch (option) {
                     case 1:
+                        System.out.println("MENU OPCIONES");
                         System.out.println("1. Hacer reserva. "
                                 + "\n2. Eliminar reserva. "
                                 + "\n3. Ver historial. \n4. Salir");
+                        option = scanner.nextInt();
                         switch (option) {
                             case 1:
+                                System.out.println("----- TIPO DE USUARIO -----");
                                 System.out.println("1. Estudiante. "
                                         + "\n2. Personal.");
-
+                                option = scanner.nextInt();
                                 switch (option) {
                                     case 1:
+                                        System.out.println("----- ESTUDIANTE UCR ------");
                                         System.out.print("Digite el nombre "
                                                 + "del espacio a reservar: ");
-                                        String spaceName = scanner.nextLine();
+                                        spaceName = scanner.next();
                                         if (sp.seeAvailability(listSportSpaces, spaceName) == true) {
                                             System.out.println("1. Confirmar reserva. \n2. Salir.");
+                                            option = scanner.nextInt();
                                             switch (option) {
                                                 case 1:
+                                                    System.out.println("Seccion datos personales");
                                                     // Pedir al usuario que ingrese los datos
                                                     System.out.print("Nombre: ");
-                                                    name = scanner.nextLine();
-                                                    
+                                                    name = scanner.next();
+
                                                     System.out.print("Carnet: ");
-                                                    carnet = scanner.nextLine();
+                                                    carnet = scanner.next();
 
                                                     System.out.print("Numero de telefono: ");
                                                     number = scanner.nextInt();
 
                                                     System.out.print("Direccion de correo: ");
-                                                    correo = scanner.nextLine();
+                                                    correo = scanner.next();
 
                                                     Contact contact = new Contact(correo, number);
-                                                    User userEstudent = new User(name,IDPerson,carnet, contact);
-                                                    
+                                                    User userEstudent = new User(name, IDPerson, carnet, contact);
+
                                                     break;
                                             }
                                         }
                                         break;
                                     case 2:
-                                        // Pedir al usuario que ingrese los datos
-                                        System.out.print("Nombre: ");
-                                        name = scanner.nextLine();
+                                        System.out.println("----- USUARIO PERSONAL UCR -----");
+                                        System.out.print("Digite el nombre "
+                                                + "del espacio a reservar: ");
+                                        spaceName = scanner.next();
+                                        if (sp.seeAvailability(listSportSpaces, spaceName) == true) {
+                                            System.out.println("1. Confirmar reserva. \n2. Salir.");
+                                            option = scanner.nextInt();
+                                            switch (option) {
+                                                case 1:
+                                                    System.out.println("Seccion datos personales");
+                                                    // Pedir al usuario que ingrese los datos
+                                                    System.out.print("Nombre: ");
+                                                    name = scanner.next();
 
-                                        System.out.print("Cedula: ");
-                                        IDPerson = scanner.nextLine();
+                                                    System.out.print("Cedula: ");
+                                                    IDPerson = scanner.next();
 
-                                        System.out.print("Numero de telefono: ");
-                                        number = scanner.nextInt();
+                                                    System.out.print("Numero de telefono: ");
+                                                    number = scanner.nextInt();
 
-                                        System.out.print("Direccion de correo: ");
-                                        correo = scanner.nextLine();
+                                                    System.out.print("Direccion de correo: ");
+                                                    correo = scanner.next();
+                                                    break;
+                                            }
+                                            break;
+                                        }
                                         break;
+                                
                                 }
                                 break;
                             case 2:
-                                break;
-                            case 3:
-                                break;
-                            case 4:
-                                break;
-                            default:
+                                System.out.println("1. Agregar espacios. "
+                                        + "\n2. Modificar espacios. "
+                                        + "\n3. Eliminar espacios. \n4. Salir.");
+                                option = scanner.nextInt();
+                                switch (option) {
+                                    case 1:
+                                        administrator.registerSpaces(listSportSpaces, 10);
+                                        break;
+                                    case 2:
+                                        administrator.modifySpaces();
+                                        break;
+                                    case 3:
+                                        administrator.deleteSpaces();
+                                        break;
+                                    case 4:
+                                        break;
+                                    default:
+                                        break;
+                                }
                                 break;
                         }
                         break;
                     case 2:
-                        System.out.println("1. Agregar espacios. "
-                                + "\n2. Modificar espacios. "
-                                + "\n3. Eliminar espacios. \n4. Salir.");
-                        switch (option) {
-                            case 1:
-                                administrator.registerSpaces(listSportSpaces, 10);
-                                break;
-                            case 2:
-                                administrator.modifySpaces();
-                                break;
-                            case 3:
-                                administrator.deleteSpaces();
-                                break;
-                            case 4:
-                                break;
-                            default:
-                                break;
-                        }
                         break;
                 }
-                break;
-            case 2:
-                break;
+            }
         }
 
     }
-
-}
