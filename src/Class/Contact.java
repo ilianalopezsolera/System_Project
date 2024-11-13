@@ -4,12 +4,12 @@ public class Contact {
 
     private String mail;
 
-    private String phone;
+    private long phone;
 
     public Contact() {
     }
 
-    public Contact(String mail, String phone) {
+    public Contact(String mail, long phone) {
         this.mail = mail;
         this.phone = phone;
     }
@@ -22,11 +22,11 @@ public class Contact {
         this.mail = mail;
     }
 
-    public String getPhone() {
+    public long getPhone() {
         return phone;
     }
 
-    public void setPhone(String phone) {
+    public void setPhone(long phone) {
         this.phone = phone;
     }
 

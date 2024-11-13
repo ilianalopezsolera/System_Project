@@ -7,7 +7,9 @@ public class Admin extends Person {
     public Admin() {
     }
 
-    public Admin(String ID) {
+    public Admin(String ID,String name, String IDPerson, String password,
+            Contact contact) {
+        super(name, IDPerson, password, contact);
         this.ID = ID;
     }
     
@@ -26,11 +28,6 @@ public class Admin extends Person {
 
     @Override
     public void chooseLanguage() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
-    @Override
-    public void validarUsuario() {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
