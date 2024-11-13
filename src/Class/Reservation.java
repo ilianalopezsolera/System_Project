@@ -1,14 +1,17 @@
 package Class;
 
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.Date;
 
 public class Reservation {
 
-    private Date date;
+    private String date;
 
-    private Date time;
+    private String time;
 
-    private SportSpace sportSpace;
+    private String sportSpace;
 
     private boolean confirmation;
 
@@ -17,7 +20,7 @@ public class Reservation {
     public Reservation() {
     }
 
-    public Reservation(Date date, Date time, SportSpace sportSpace, boolean confirmation, User user) {
+    public Reservation(String date, String time, String sportSpace, boolean confirmation, User user) {
         this.date = date;
         this.time = time;
         this.sportSpace = sportSpace;
@@ -25,27 +28,27 @@ public class Reservation {
         this.user = user;
     }
 
-    public Date getDate() {
+    public String getDate() {
         return date;
     }
 
-    public void setDate(Date date) {
+    public void setDate(String date) {
         this.date = date;
     }
 
-    public Date getTime() {
+    public String getTime() {
         return time;
     }
 
-    public void setTime(Date time) {
+    public void setTime(String time) {
         this.time = time;
     }
 
-    public SportSpace getSportSpace() {
+    public String getSportSpace() {
         return sportSpace;
     }
 
-    public void setSportSpace(SportSpace sportSpace) {
+    public void setSportSpace(String sportSpace) {
         this.sportSpace = sportSpace;
     }
 
@@ -65,7 +68,14 @@ public class Reservation {
         this.user = user;
     }
     
-    public void createReservation() {
+    public void createReservation(Reservation reservation) {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter("Historial sistema de reservas.txt", true))) { // Modo append
+            writer.write(reservation.toString());
+            writer.newLine(); // Añadir un salto de línea después de cada reserva
+            System.out.println("Reservación guardada en el historial.");
+        } catch (IOException e) {
+            System.out.println("Error al guardar la reservación: " + e.getMessage());
+        }
     }
 
     public void cancelReservation() {

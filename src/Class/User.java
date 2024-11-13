@@ -11,8 +11,8 @@ public class User extends Person {
         super(name, IDPerson, carnet, contact);
     }
 
-    public User(String name, String IDPerson, Contact contact) {
-        super(name, IDPerson, contact);
+    public User(String name, String carnet, Contact contact) {
+        super(name, carnet, contact);
     }
 
     public void makeReservation(SportSpace[] sportSpaces, String spaceName, String file) {

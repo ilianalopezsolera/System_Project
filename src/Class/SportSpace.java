@@ -106,7 +106,7 @@ public class SportSpace {
         if (sportSpaces[i].getName().trim().equalsIgnoreCase(spaceName)) {  // Verifica el nombre del espacio
             if (sportSpaces[i].availability) {  // Verifica si el espacio está disponible
                 System.out.println("----------------------------------------------------------------------------------------------------");
-                System.out.println("Espacio disponible: " + sportSpaces[i]);
+                System.out.println(sportSpaces[i]);
                 found = true;  // Marca que encontró al menos un espacio disponible
             }
         }
