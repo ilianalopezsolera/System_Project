@@ -4,6 +4,11 @@
  */
 package Class;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.Date;
+
 /**
  *
  * @author ilico
@@ -13,18 +18,22 @@ public class SportSpace {
     private String name;
 
     private String type;
-    
-    private boolean availability = true;
-    
-    private int spaces = 10;
+
+    private boolean availability;
+
+    private String date;
+
+    private String hora;
 
     public SportSpace() {
     }
 
-    public SportSpace(String name, String type, boolean availability) {
+    public SportSpace(String name, String type, boolean availability, String date, String hora) {
         this.name = name;
         this.type = type;
         this.availability = availability;
+        this.date = date;
+        this.hora = hora;
     }
 
     public String getName() {
@@ -46,44 +55,52 @@ public class SportSpace {
     public boolean getAvailability() {
         return availability;
     }
-    
-    public void setAvailability(boolean availability){
+
+    public void setAvailability(boolean availability) {
         this.availability = availability;
     }
 
-    public int getSpaces() {
-        return spaces;
+    public SportSpace[] fillSportSpaces() {
+        SportSpace[] sportSpaces = new SportSpace[156]; // Ajusta el tamaño según la cantidad de registros en el archivo
+        int index = 0;
+
+        try (BufferedReader br = new BufferedReader(new FileReader("Calendario reservas.txt"))) {
+            String linea;
+            while ((linea = br.readLine()) != null) {
+                // Omite la primera línea del archivo si es un encabezado
+                if (linea.startsWith("Nombre:1"
+                        + "")) {
+                    continue;
+                }
+
+                // Parseo de la línea
+                String[] partes = linea.split(", ");
+                String nombre = partes[0].split(": ")[1].trim();
+                String tipo = partes[1].split(": ")[1].trim();
+                boolean disponibilidad = Boolean.parseBoolean(partes[2].split(": ")[1]);
+                String fecha = partes[3].split(": ")[1].trim();
+                String hora = partes[4].split(": ")[1].trim();
+
+                // Crear y agregar el objeto SportSpace al arreglo
+                sportSpaces[index++] = new SportSpace(nombre, tipo, disponibilidad, fecha, hora);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return sportSpaces;
     }
 
-    public void setSpaces(int spaces) {
-        this.spaces = spaces;
-    }
-    
-    public SportSpace[] fillSportSpace(){
-        SportSpace[] sp = new SportSpace[spaces];
-        sp[0] = new SportSpace("Baloncesto", "Tipo", true);
-        sp[1] = new SportSpace("Futbol", "Tipo", false);
-        sp[2] = new SportSpace("Gimnasio", "Tipo", true);
-        sp[3] = new SportSpace("Baloncesto", "Tipo", true);
-        sp[4] = new SportSpace("Futbol", "Tipo", false);
-        sp[5] = new SportSpace("Gimnasio", "Tipo", true);
-        sp[6] = new SportSpace("Baloncesto", "Tipo", true);
-        sp[7] = new SportSpace("Futbol", "Tipo", false);
-        sp[8] = new SportSpace("Gimnasio", "Tipo", true);
-        sp[9] = new SportSpace("Gimnasio", "Tipo", true);
-        return sp;
-    }
-    
     public void showAvailability(SportSpace[] sportSpaces) {
         for (int i = 0; i < sportSpaces.length; i++) {
-                if (sportSpaces[i].availability = true) {  // Verifica si el espacio está disponible
-                    System.out.println(sportSpaces[i]);
-                }
+            if (sportSpaces[i].availability = true) {  // Verifica si el espacio está disponible
+                System.out.println(sportSpaces[i]);
+            }
         }
     }
-    
-    public boolean seeAvailability(SportSpace[] sportSpaces, String spaceName){
-          for (int i = 0; i < sportSpaces.length; i++) {
+
+    public boolean seeAvailability(SportSpace[] sportSpaces, String spaceName) {
+        for (int i = 0; i < sportSpaces.length; i++) {
             if (sportSpaces[i].getName().equals(spaceName)) {  // Verifica el nombre del espacio
                 if (sportSpaces[i].availability) {  // Verifica si el espacio está disponible
                     System.out.println("El espacio " + spaceName + " se encuentra disponible.");
@@ -100,8 +117,7 @@ public class SportSpace {
 
     @Override
     public String toString() {
-        return "SportSpace{" + "name=" + name + ", type=" + type + ""
-                + ", availability=" + availability + ", spaces=" + spaces + '}';
+        return "SportSpace{" + "name=" + name + ", type=" + type + ", availability=" + availability + ", date=" + date + ", hora=" + hora + '}';
     }
-    
+
 }

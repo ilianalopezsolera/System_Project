@@ -13,8 +13,8 @@ public class Main {
      */
     public static void main(String[] args) {
         Admin administrator = new Admin();
-        SportSpace sp = new SportSpace();
-        SportSpace[] listSportSpaces = sp.fillSportSpace();
+        SportSpace sportSpace = new SportSpace();
+        SportSpace[] listSpaces = sportSpace.fillSportSpaces();
 
         int option;
         Scanner scanner = new Scanner(System.in);
@@ -54,7 +54,7 @@ public class Main {
                                         System.out.print("Digite el nombre "
                                                 + "del espacio a reservar: ");
                                         spaceName = scanner.next();
-                                        if (sp.seeAvailability(listSportSpaces, spaceName) == true) {
+                                        if (sportSpace.seeAvailability(listSpaces, spaceName) == true) {
                                             System.out.println("1. Confirmar reserva. \n2. Salir.");
                                             option = scanner.nextInt();
                                             switch (option) {
@@ -85,7 +85,7 @@ public class Main {
                                         System.out.print("Digite el nombre "
                                                 + "del espacio a reservar: ");
                                         spaceName = scanner.next();
-                                        if (sp.seeAvailability(listSportSpaces, spaceName) == true) {
+                                        if (sportSpace.seeAvailability(listSpaces, spaceName) == true) {
                                             System.out.println("1. Confirmar reserva. \n2. Salir.");
                                             option = scanner.nextInt();
                                             switch (option) {
@@ -118,7 +118,7 @@ public class Main {
                                 option = scanner.nextInt();
                                 switch (option) {
                                     case 1:
-                                        administrator.registerSpaces(listSportSpaces, 10);
+                                        administrator.registerSpaces(listSpaces, 156);
                                         break;
                                     case 2:
                                         administrator.modifySpaces();
