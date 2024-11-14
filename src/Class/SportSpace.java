@@ -75,37 +75,64 @@ public class SportSpace {
     public void setTime(String time) {
         this.time = time;
     }
-
-    public SportSpace[] fillSportSpaces() {
-        SportSpace[] sportSpaces = new SportSpace[156]; // Ajusta el tamaño según la cantidad de registros en el archivo
+    
+    public SportSpace[] fillSporSpaces(){
+                SportSpace[] sportSpaces = new SportSpace[156]; // Arreglo con el tamaño necesario
         int index = 0;
 
         try (BufferedReader br = new BufferedReader(new FileReader("Calendario reservas.txt"))) {
-            String linea;
-            while ((linea = br.readLine()) != null) {
-                // Omite la primera línea del archivo si es un encabezado
-                if (linea.startsWith("Nombre:"
-                        + "")) {
-                    continue;
-                }
+            String line;
 
-                // Parseo de la línea
-                String[] partes = linea.split(", ");
-                String nombre = partes[0].split(": ")[1].trim();
-                String tipo = partes[1].split(": ")[1].trim();
-                boolean disponibilidad = Boolean.parseBoolean(partes[2].split(": ")[1]);
-                String fecha = partes[3].split(": ")[1].trim();
-                String hora = partes[4].split(": ")[1].trim();
+            while ((line = br.readLine()) != null && index < sportSpaces.length) {
+                String[] parts = line.split(", ");
 
-                // Crear y agregar el objeto SportSpace al arreglo
-                sportSpaces[index++] = new SportSpace(nombre, tipo, disponibilidad, fecha, hora);
+                // Extraer y procesar los datos
+                String name = parts[0].split(": ")[1];
+                String type = parts[1].split(": ")[1];
+                boolean availability = Boolean.parseBoolean(parts[2].split(": ")[1]);
+                String date = parts[3].split(": ")[1];
+                String time = parts[4].split(": ")[1];
+
+                // Crear el objeto SportSpace y agregarlo al arreglo
+                sportSpaces[index++] = new SportSpace(name, type, availability, date, time);
             }
+
         } catch (IOException e) {
             e.printStackTrace();
         }
-
         return sportSpaces;
     }
+
+//    public SportSpace[] fillSportSpaces() {
+//        SportSpace[] sportSpaces = new SportSpace[156]; // Ajusta el tamaño según la cantidad de registros en el archivo
+//        int index = 0;
+//
+//        try (BufferedReader br = new BufferedReader(new FileReader("Calendario reservas.txt"))) {
+//            String linea;
+//            while ((linea = br.readLine()) != null) {
+//                // Omite la primera línea del archivo si es un encabezado
+//                if (linea.startsWith("Nombre:"
+//                        + "")) {
+//                    continue;
+//                }
+//
+//                // Parseo de la línea
+//                String[] partes = linea.split(", ");
+//                String nombre = partes[0].split(": ")[1].trim();
+//                String tipo = partes[1].split(": ")[1].trim();
+//                boolean availability = Boolean.parseBoolean(partes[2].split(": ")[1]);
+//                String fecha = partes[3].split(": ")[1].trim();
+//                String hora = partes[4].split(": ")[1].trim();
+//
+//                // Crear y agregar el objeto SportSpace al arreglo
+//                sportSpaces[index++] = new SportSpace(nombre, tipo, availability, fecha, hora);
+//            }
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+//
+//        return sportSpaces;
+//    }
 
     public void showAvailability(SportSpace[] sportSpaces) {
         for (int i = 0; i < sportSpaces.length; i++) {
@@ -141,7 +168,7 @@ public class SportSpace {
     @Override
     public String toString() {
         return "sport space name: " + name + ", type: " + type + ", availability: " 
-                + availability + ", date: " + date + ", time: " + time + '}';
+                + availability + ", date: " + date + ", time: " + time;
     }
 
 }

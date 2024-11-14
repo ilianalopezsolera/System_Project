@@ -12,6 +12,14 @@ public class Admin extends Person {
         super(name, IDPerson, password, contact);
         this.ID = ID;
     }
+
+    public String getID() {
+        return ID;
+    }
+
+    public void setID(String ID) {
+        this.ID = ID;
+    }
     
     public void registerSpaces(SportSpace[] listSportSpace, int spaces) {
     

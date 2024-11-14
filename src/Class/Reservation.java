@@ -56,7 +56,7 @@ public class Reservation {
         this.sportSpace = sportSpace;
     }
 
-    public boolean isConfirmation() {
+    public boolean getConfirmation() {
         return confirmation;
     }
 
@@ -72,21 +72,24 @@ public class Reservation {
         this.user = user;
     }
 
-    public void createReservation(Reservation reservation, SportSpace[] sportSpaces, String spaceName, String date, String time) {
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter("Historial"
-                + " sistema de reservas.txt", true))) { // Modo append
-            writer.write(reservation.toString());
-            writer.newLine(); // Añadir un salto de línea después de cada reserva
-            System.out.println("Reservación guardada en el historial.");
-        } catch (IOException e) {
-            System.out.println("Error al guardar la reservación: " + e.getMessage());
-        }
+    public boolean createReservation(Reservation reservation, SportSpace[] sportSpaces, String spaceName, String date, String time) {
+        boolean successful = false;
         for (int i = 0; i < sportSpaces.length; i++) {
             if (sportSpaces[i].getName().equals(spaceName) && sportSpaces[i].getDate().equals(date)
                     && sportSpaces[i].getTime().equals(time)) {
                 sportSpaces[i].setAvailability(false);
+
+                try (BufferedWriter writer = new BufferedWriter(new FileWriter("Historial"
+                        + " sistema de reservas.txt", true))) { // Modo append
+                    writer.write(reservation.toString());
+                    writer.newLine(); // Añadir un salto de línea después de cada reserva
+                    successful = true;
+                } catch (IOException e) {
+                    System.out.println("Error al guardar la reservación: " + e.getMessage());
+                }
             }
         }
+        return successful;
     }
 
     public Reservation[] reservationList() {
@@ -123,21 +126,23 @@ public class Reservation {
 
     public void deleteReservation(Reservation[] reservationList, String date, String time, String sportSpace) {
         for (int i = 0; i < reservationList.length; i++) {
-            if (reservationList[i].getDate().equalsIgnoreCase(date)
+            if (reservationList[i] == null) {
+                i = reservationList.length;
+            } else if (reservationList[i].getDate().equalsIgnoreCase(date)
                     && reservationList[i].getTime().equalsIgnoreCase(time)
                     && reservationList[i].getSportSpace().equalsIgnoreCase(sportSpace)) {
                 reservationList[i].setConfirmation(false);
                 System.out.println("Cancelacion exitosa");
 
-                try (BufferedWriter writer = new BufferedWriter(new FileWriter("Historial sistema de reservas.txt", true))) {
+                try (BufferedWriter writer = new BufferedWriter(new FileWriter("Historial sistema de reservas.txt"))) {
                     // Escribir todas las reservas actuales, incluyendo la actualizada
                     for (int j = 0; j < reservationList.length; j++) {
-                        if(reservationList[i] == null){
+                        if (reservationList[i] == null) {
                             return;
-                        }else{
-                        // Asumiendo que Reservation tiene un método toString que formatea correctamente
-                        writer.write(reservationList[j].toString());
-                        writer.newLine(); // Escribe una nueva línea
+                        } else {
+                            // Asumiendo que Reservation tiene un método toString que formatea correctamente
+                            writer.write(reservationList[j].toString());
+                            writer.newLine(); // Escribe una nueva línea
                         }
                     }
                 } catch (IOException e) {

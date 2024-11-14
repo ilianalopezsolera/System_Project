@@ -17,7 +17,7 @@ public class Main {
         Admin administrator = new Admin();
         Reservation reservation = new Reservation();
         SportSpace sportSpace = new SportSpace();
-        SportSpace[] listSpaces = sportSpace.fillSportSpaces();
+        SportSpace[] listSpaces = sportSpace.fillSporSpaces();
         Reservation[] reservations = reservation.reservationList();
         User user = new User();
  
@@ -27,11 +27,19 @@ public class Main {
         String name;
         String carnet;
         long number;
-        String correo;
+        String mail;
         String IDPerson = "";
         String spaceName;
         String dateReservation;
         String timeReservation;
+        
+        for (int i = 0; i < reservations.length; i++) {
+            if (reservations[i]== null) {
+                i = reservations.length;
+            }else{
+                System.out.println(reservations[i]);
+            }
+        }
 
         System.out.println("----- SISTEMA DE ESPACIOS DEPORTIVOS -----");
         System.out.println("LENGUAJE");
@@ -70,6 +78,8 @@ public class Main {
                                         System.out.print("Digite el nombre "
                                                 + "del espacio a reservar: ");
                                         spaceName = scanner.nextLine().trim();
+                                        System.out.println();
+                                        System.out.println("ESPACIOS DISPONIBLES");
                                         if (sportSpace.seeAvailability(listSpaces,
                                                 spaceName) == true) {
                                             System.out.println("Seccion datos "
@@ -88,9 +98,10 @@ public class Main {
 
                                                     System.out.print("Direccion "
                                                             + "de correo: ");
-                                                    correo = scanner.next();
+                                                    mail = scanner.next();
 
-                                                    System.out.println("Escoja "
+                                                    do{
+                                                        System.out.println("Escoja "
                                                             + "una fecha y hora");
                                                     
                                                     System.out.print("Fecha: ");
@@ -100,17 +111,27 @@ public class Main {
                                                     timeReservation = scanner.next();
 
                                                     Contact contact = new Contact
-                                                    (correo, number);
+                                                    (mail, number);
                                                     User userEstudent = new User
                                                     (name, carnet, contact);
                                                     Reservation reservationStudent
                                                     = new Reservation(dateReservation, 
                                                     timeReservation, spaceName, 
                                                     true, userEstudent);
-                                                    reservationStudent.createReservation
+                                                    if(reservationStudent.createReservation
                                                     (reservationStudent, listSpaces, 
                                                     spaceName, dateReservation, 
-                                                    timeReservation);
+                                                    timeReservation)){
+                                                        System.out.println("Reservación"
+                                                                + " guardada en el historial.");
+                                                    }else{
+                                                        System.out.println("ERROR: "
+                                                                + "Espacio no disponible");
+                                                    }
+                                                        System.out.println("1. Seguir reservando. 2. Salir.");
+                                                        option = scanner.nextInt();
+                                                        scanner.nextLine();
+                                                    }while(option==1);
                                         }
                                         break;
                                     //Tipo personal
@@ -136,7 +157,7 @@ public class Main {
                                                 
                                                 System.out.print("Direccion "
                                                     + "de correo: ");
-                                                correo = scanner.next();
+                                                mail = scanner.next();
                                                 
                                                 System.out.println("Escoja "
                                                             + "una fecha y hora");
@@ -148,7 +169,7 @@ public class Main {
                                                 timeReservation = scanner.next();
 
                                                 Contact contact = new Contact
-                                                (correo, number);
+                                                (mail, number);
                                                 User userPersonal = new User
                                                 (name, IDPerson, contact);
                                                 Reservation reservationPersonal
@@ -188,16 +209,20 @@ public class Main {
                                 System.out.println("1. Estudiante. \n2. Personal."
                                         + " \n3. Salir");
                                 option = scanner.nextInt();
+                                scanner.nextLine();
                                 switch(option){
                                     case 1:
                                         System.out.print("Digite su carnet: ");
                                         carnet = scanner.next();
                                         scanner.nextLine();
+                                        user.viewHistory(carnet, reservations);
                                         break;
                                     case 2:
-                                        System.out.print("Digite su ID: ");
+                                        System.out.print("Digite su cedula: ");
                                         IDPerson = scanner.next();
                                         scanner.nextLine();
+                                        user.viewHistory(IDPerson, reservations);
+                                        
                                         break;
                                     case 3:
                                         break;
@@ -207,6 +232,7 @@ public class Main {
                                 break;
                             //Ver espacios disponibles
                             case 4:
+                                user.seeAvailableList(listSpaces);
                                 break;
                             //Salida
                             case 5:
@@ -289,7 +315,7 @@ public class Main {
                                                     number = scanner.nextInt();
 
                                                     System.out.print("courrier: ");
-                                                    correo = scanner.next();
+                                                    mail = scanner.next();
 
                                                     System.out.println("Choisissez"
                                                             + "une date et une heure");
@@ -299,7 +325,7 @@ public class Main {
                                                     timeReservation = scanner.next();
 
                                                     Contact contact = new Contact
-                                                    (correo, number);
+                                                    (mail, number);
                                                     User userEstudent = new User
                                                     (name, carnet, contact);
                                                     Reservation reservationStudent
@@ -332,7 +358,7 @@ public class Main {
                                                 number = scanner.nextInt();
                                                 
                                                 System.out.print("courrier: ");
-                                                correo = scanner.next();
+                                                mail = scanner.next();
                                                 
                                                 System.out.println("Choisissez"
                                                             + "une date et une heure");
@@ -344,7 +370,7 @@ public class Main {
                                                 timeReservation = scanner.next();
 
                                                 Contact contact = new Contact
-                                                (correo, number);
+                                                (mail, number);
                                                 User userPersonal = new User
                                                 (name, IDPerson, contact);
                                                 Reservation reservationPersonal
@@ -451,7 +477,7 @@ public class Main {
                                                     number = scanner.nextInt();
 
                                                     System.out.print("Correio: ");
-                                                    correo = scanner.next();
+                                                    mail = scanner.next();
 
                                                     System.out.println("Escolha data e hora");
                                                     System.out.print("Data: ");
@@ -460,7 +486,7 @@ public class Main {
                                                     timeReservation = scanner.next();
 
                                                     Contact contact = new Contact
-                                                    (correo, number);
+                                                    (mail, number);
                                                     User userEstudent = new User
                                                     (name, carnet, contact);
                                                     Reservation reservationStudent
@@ -491,7 +517,7 @@ public class Main {
                                                     number = scanner.nextInt();
 
                                                     System.out.print("Correio: ");
-                                                    correo = scanner.next();
+                                                    mail = scanner.next();
 
                                                     System.out.println("Escolha data e hora");
                                                     System.out.print("Data: ");
@@ -500,7 +526,7 @@ public class Main {
                                                     timeReservation = scanner.next();
 
                                                     Contact contact = new Contact
-                                                    (correo, number);
+                                                    (mail, number);
                                                     User userEstudent = new User
                                                     (name, IDPerson, contact);
                                                     Reservation reservationPersonal
