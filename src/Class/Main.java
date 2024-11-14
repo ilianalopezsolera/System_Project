@@ -16,14 +16,14 @@ public class Main {
     public static void main(String[] args) throws IOException {
         Admin administrator = new Admin();
         Admin[] adminList = administrator.adminList();
-        
+
         ReservationSystem reservationSystem = new ReservationSystem();
         Reservation reservation = new Reservation();
         Reservation[] reservations = reservation.reservationList();
-        
+
         SportSpace sportSpace = new SportSpace();
         SportSpace[] listSpaces = sportSpace.fillSporSpaces();
-        
+
         User user = new User();
 
         int option = 0;
@@ -261,6 +261,13 @@ public class Main {
                                     break;
                                 //Ver reservas
                                 case 4:
+                                    for (int i = 0; i < reservations.length; i++) {
+                                        if (reservations[i] == null) {
+                                            i = reservations.length;
+                                        } else {
+                                            System.out.println(reservations[i]);
+                                        }
+                                    }
                                     break;
                                 //Salida
                                 case 5:
