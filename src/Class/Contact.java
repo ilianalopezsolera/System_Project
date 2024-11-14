@@ -32,7 +32,7 @@ public class Contact {
 
     @Override
     public String toString() {
-        return "Contact{" + "mail=" + mail + ", phone=" + phone + '}';
+        return "mail: " + mail + ", phone: " + phone;
     }
     
 }

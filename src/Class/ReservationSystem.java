@@ -60,8 +60,8 @@ public class ReservationSystem {
 
     @Override
     public String toString() {
-        return "ReservationSystem{" + "spaces=" + spaces + ", admin=" + admin
-                + ", reservation=" + reservation + '}';
+        return "ReservationSystem " + "spaces: " + spaces + ", admin: " + admin
+                + ", reservation: " + reservation;
     }
 
 }

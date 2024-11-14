@@ -33,7 +33,7 @@ public class Admin extends Person {
 
     @Override
     public String toString() {
-        return "Admin{" + "ID=" + ID + '}';
+        return "Admin " + "ID: " + ID;
     }
 
 }

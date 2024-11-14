@@ -15,9 +15,11 @@ public class Main {
      */
     public static void main(String[] args) throws IOException {
         Admin administrator = new Admin();
+        Reservation reservation = new Reservation();
         SportSpace sportSpace = new SportSpace();
         SportSpace[] listSpaces = sportSpace.fillSportSpaces();
-
+        Reservation[] reservations = reservation.reservationList();
+ 
         int option = 0;
         Scanner scanner = new Scanner(System.in);
 
@@ -59,6 +61,7 @@ public class Main {
                                 System.out.println("1. Estudiante. \n2. Personal."
                                         + " \n3. Salir");
                                 option = scanner.nextInt();
+                                scanner.nextLine();
                                 switch (option) {
                                     //Tipo estudiante 
                                     case 1:
@@ -80,6 +83,7 @@ public class Main {
                                                     System.out.print("Numero de "
                                                             + "telefono: ");
                                                     number = scanner.nextInt();
+                                                    scanner.nextLine();
 
                                                     System.out.print("Direccion "
                                                             + "de correo: ");
@@ -149,7 +153,7 @@ public class Main {
                                                 Reservation reservationPersonal
                                                 = new Reservation(dateReservation, 
                                                 timeReservation, spaceName, 
-                                                true, userPersonal);
+                                                true, userPersonal); 
                                                 reservationPersonal.createReservation
                                                 (reservationPersonal, listSpaces, 
                                                 spaceName, dateReservation, 
@@ -165,6 +169,17 @@ public class Main {
                                 break;
                             //Eliminar reserva
                             case 2:
+                                System.out.println("Digite los datos para cancelar "
+                                        + "la reserva");
+                                System.out.println("Fecha: ");
+                                dateReservation = scanner.next();
+                                scanner.nextLine();
+                                System.out.println("Hora: ");
+                                timeReservation = scanner.next();
+                                scanner.nextLine();
+                                System.out.println("Espacio deportivo: ");
+                                spaceName = scanner.nextLine();
+                                reservation.deleteReservation(reservations, dateReservation, timeReservation, spaceName);
                                 break;
                             //Ver historial
                             case 3:

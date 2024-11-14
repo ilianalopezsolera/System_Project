@@ -84,7 +84,7 @@ public class SportSpace {
             String linea;
             while ((linea = br.readLine()) != null) {
                 // Omite la primera línea del archivo si es un encabezado
-                if (linea.startsWith("Nombre:1"
+                if (linea.startsWith("Nombre:"
                         + "")) {
                     continue;
                 }
@@ -138,7 +138,8 @@ public class SportSpace {
 
     @Override
     public String toString() {
-        return "SportSpace{" + "name=" + name + ", type=" + type + ", availability=" + availability + ", date=" + date + ", time=" + time + '}';
+        return "sport space " + "name: " + name + ", type: " + type + ", availability: " 
+                + availability + ", date: " + date + ", time: " + time + '}';
     }
 
 }

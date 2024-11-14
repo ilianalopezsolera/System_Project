@@ -29,8 +29,8 @@ public abstract class Person implements Language {
 
     @Override
     public String toString() {
-        return "Person{" + "name=" + name + ", IDPerson=" + IDPerson +
-                ", password=" + carnet + ", contact=" + contact + '}';
+        return "name: " + name + ", identifier: " + IDPerson + ", contact " + contact;
     }
+    
     
 }
