@@ -121,7 +121,9 @@ public class SportSpace {
     for (int i = 0; i < sportSpaces.length; i++) {
         if (sportSpaces[i].getName().trim().equalsIgnoreCase(spaceName)) {  // Verifica el nombre del espacio
             if (sportSpaces[i].availability) {  // Verifica si el espacio está disponible
-                System.out.println("----------------------------------------------------------------------------------------------------");
+                System.out.println("-------------------------------------------"
+                        + "----------------------------------------------------"
+                        + "-----");
                 System.out.println(sportSpaces[i]);
                 found = true;  // Marca que encontró al menos un espacio disponible
             }
@@ -138,7 +140,7 @@ public class SportSpace {
 
     @Override
     public String toString() {
-        return "sport space " + "name: " + name + ", type: " + type + ", availability: " 
+        return "sport space name: " + name + ", type: " + type + ", availability: " 
                 + availability + ", date: " + date + ", time: " + time + '}';
     }
 

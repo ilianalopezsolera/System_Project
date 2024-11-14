@@ -19,6 +19,7 @@ public class Main {
         SportSpace sportSpace = new SportSpace();
         SportSpace[] listSpaces = sportSpace.fillSportSpaces();
         Reservation[] reservations = reservation.reservationList();
+        User user = new User();
  
         int option = 0;
         Scanner scanner = new Scanner(System.in);
@@ -183,6 +184,26 @@ public class Main {
                                 break;
                             //Ver historial
                             case 3:
+                                System.out.println("----- TIPO DE USUARIO -----");
+                                System.out.println("1. Estudiante. \n2. Personal."
+                                        + " \n3. Salir");
+                                option = scanner.nextInt();
+                                switch(option){
+                                    case 1:
+                                        System.out.print("Digite su carnet: ");
+                                        carnet = scanner.next();
+                                        scanner.nextLine();
+                                        break;
+                                    case 2:
+                                        System.out.print("Digite su ID: ");
+                                        IDPerson = scanner.next();
+                                        scanner.nextLine();
+                                        break;
+                                    case 3:
+                                        break;
+                                    default:
+                                        break;
+                                }
                                 break;
                             //Ver espacios disponibles
                             case 4:

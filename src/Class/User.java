@@ -27,11 +27,19 @@ public class User extends Person {
         }
     }
 
-    public void seeAvailableList() {
+    public void seeAvailableList(SportSpace[] sportSpaces) {
+        for (int i = 0; i < sportSpaces.length; i++) {
+            if (sportSpaces[i].getAvailability()==true) {
+                System.out.println("-------------------------------------------"
+                        + "----------------------------------------------------"
+                        + "-----");
+                System.out.println(sportSpaces[i]);
+            }
+        }
     }
-
-    public void deleteReservation() {
-
+    
+     public void viewHistory(String identifier){
+        
     }
 
     @Override
