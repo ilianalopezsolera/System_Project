@@ -54,11 +54,10 @@ public class User extends Person {
     
     for (int i = 0; i < reservations.length; i++) {
         if (reservations[i] == null) {
-            System.out.println("Vacio");
             break;  // Salir del bucle si encontramos una posición vacía
-        } else if (reservations[i].getUser() != null && reservations[i].getUser().getCarnet() != null) {
+        } else if (reservations[i].getUser() != null && reservations[i].getUser().getIDPerson() != null) {
             // Comparamos el carnet, asegurándonos de que no sea null
-            if (reservations[i].getUser().getCarnet().equalsIgnoreCase(identifier)) {
+            if (reservations[i].getUser().getIDPerson().equalsIgnoreCase(identifier)) {
                 System.out.println(reservations[i]);
                 encontrado = true;
             }

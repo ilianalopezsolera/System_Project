@@ -1,2 +1,3 @@
 Reservation date: 07/12/24, time: 20:00, sport space: Gimnasio, confirmation: false, user name: Meylin Lopez, identifier: C4G662, contact mail: meylin.lopez@ucr.ac.cr, phone: 63158845
 Reservation date: 06/12/24, time: 16:00, sport space: Gimnasio, confirmation: true, user name: Meylin Lopez, identifier: C4G662, contact mail: meylin.lopez@ucr.ac.cr, phone: 63158845
+Reservation date: 30/11/24, time: 12:00, sport space: Cancha de baloncesto, confirmation: false, user name: Carlos Rodriguez, identifier: C4I222, contact mail: carlos.rodriguez@ucr.ac.cr, phone: 70746123
