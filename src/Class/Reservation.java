@@ -68,13 +68,18 @@ public class Reservation {
         this.user = user;
     }
     
-    public void createReservation(Reservation reservation) {
+    public void createReservation(Reservation reservation, SportSpace[] sportSpaces, String spaceName, String date, String time) {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter("Historial sistema de reservas.txt", true))) { // Modo append
             writer.write(reservation.toString());
             writer.newLine(); // Añadir un salto de línea después de cada reserva
             System.out.println("Reservación guardada en el historial.");
         } catch (IOException e) {
             System.out.println("Error al guardar la reservación: " + e.getMessage());
+        }
+        for (int i = 0; i < sportSpaces.length; i++) {
+            if (sportSpaces[i].getName().equals(spaceName) && sportSpaces[i].getDate().equals(date) && sportSpaces[i].getTime().equals(time)) {
+                sportSpaces[i].setAvailability(false);
+            }
         }
     }
 

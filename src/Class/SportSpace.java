@@ -23,17 +23,17 @@ public class SportSpace {
 
     private String date;
 
-    private String hora;
+    private String time;
 
     public SportSpace() {
     }
 
-    public SportSpace(String name, String type, boolean availability, String date, String hora) {
+    public SportSpace(String name, String type, boolean availability, String date, String time) {
         this.name = name;
         this.type = type;
         this.availability = availability;
         this.date = date;
-        this.hora = hora;
+        this.time = time;
     }
 
     public String getName() {
@@ -58,6 +58,22 @@ public class SportSpace {
 
     public void setAvailability(boolean availability) {
         this.availability = availability;
+    }
+
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
+    }
+
+    public String getTime() {
+        return time;
+    }
+
+    public void setTime(String time) {
+        this.time = time;
     }
 
     public SportSpace[] fillSportSpaces() {
@@ -122,7 +138,7 @@ public class SportSpace {
 
     @Override
     public String toString() {
-        return "SportSpace{" + "name=" + name + ", type=" + type + ", availability=" + availability + ", date=" + date + ", hora=" + hora + '}';
+        return "SportSpace{" + "name=" + name + ", type=" + type + ", availability=" + availability + ", date=" + date + ", time=" + time + '}';
     }
 
 }

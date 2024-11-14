@@ -1,1 +1,1 @@
-Historial sistema de reservasReservation{date=02/12/24, time=16:00, sportSpace=Gimnasio, confirmation=true, user=Person{name=Meylin, IDPerson=C4G662, password=null, contact=Contact{mail=meylin.lopez@ucr.ac.cr, phone=63158845}}}
+Historial sistema de reservasReservation{date=07/12/24, time=20:00, sportSpace=Gimnasio, confirmation=true, user=Person{name=Meylin, IDPerson=C4G662, password=null, contact=Contact{mail=meylin.lopez@ucr.ac.cr, phone=63158845}}}

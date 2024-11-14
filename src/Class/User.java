@@ -8,7 +8,7 @@ public class User extends Person {
     }
 
     public User(String name, String IDPerson, String carnet, Contact contact) {
-        super(name, IDPerson, carnet, contact);
+        super(name, IDPerson, contact);
     }
 
     public User(String name, String carnet, Contact contact) {
