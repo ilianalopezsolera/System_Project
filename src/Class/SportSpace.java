@@ -103,37 +103,6 @@ public class SportSpace {
         return sportSpaces;
     }
 
-//    public SportSpace[] fillSportSpaces() {
-//        SportSpace[] sportSpaces = new SportSpace[156]; // Ajusta el tamaño según la cantidad de registros en el archivo
-//        int index = 0;
-//
-//        try (BufferedReader br = new BufferedReader(new FileReader("Calendario reservas.txt"))) {
-//            String linea;
-//            while ((linea = br.readLine()) != null) {
-//                // Omite la primera línea del archivo si es un encabezado
-//                if (linea.startsWith("Nombre:"
-//                        + "")) {
-//                    continue;
-//                }
-//
-//                // Parseo de la línea
-//                String[] partes = linea.split(", ");
-//                String nombre = partes[0].split(": ")[1].trim();
-//                String tipo = partes[1].split(": ")[1].trim();
-//                boolean availability = Boolean.parseBoolean(partes[2].split(": ")[1]);
-//                String fecha = partes[3].split(": ")[1].trim();
-//                String hora = partes[4].split(": ")[1].trim();
-//
-//                // Crear y agregar el objeto SportSpace al arreglo
-//                sportSpaces[index++] = new SportSpace(nombre, tipo, availability, fecha, hora);
-//            }
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
-//
-//        return sportSpaces;
-//    }
-
     public void showAvailability(SportSpace[] sportSpaces) {
         for (int i = 0; i < sportSpaces.length; i++) {
             if (sportSpaces[i].availability = true) {  // Verifica si el espacio está disponible

@@ -252,6 +252,7 @@ public class Main {
                             switch (option) {
                                 //Registrar
                                 case 1:
+                                    administrator.registerSpaces();
                                     break;
                                 //Modificar
                                 case 2:
