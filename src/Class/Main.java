@@ -19,7 +19,7 @@ public class Main {
 
         ReservationSystem reservationSystem = new ReservationSystem();
         Reservation reservation = new Reservation();
-        Reservation[] reservations = reservation.reservationList();
+//        Reservation[] reservations = reservation.reservationList();
 
         SportSpace sportSpace = new SportSpace();
         SportSpace[] listSpaces = sportSpace.fillSporSpaces();
@@ -39,13 +39,13 @@ public class Main {
         String timeReservation;
         String password;
 
-        for (int i = 0; i < reservations.length; i++) {
-            if (reservations[i] == null) {
-                i = reservations.length;
-            } else {
-                System.out.println(reservations[i]);
-            }
-        }
+//        for (int i = 0; i < reservations.length; i++) {
+//            if (reservations[i] == null) {
+//                i = reservations.length;
+//            } else {
+//                System.out.println(reservations[i]);
+//            }
+//        }
 
         System.out.println("----- SISTEMA DE ESPACIOS DEPORTIVOS -----");
         System.out.println("LENGUAJE");
@@ -201,7 +201,7 @@ public class Main {
                                 scanner.nextLine();
                                 System.out.println("Espacio deportivo: ");
                                 spaceName = scanner.nextLine();
-                                reservation.deleteReservation(reservations, dateReservation, timeReservation, spaceName);
+                                user.deleteReservation();
                                 break;
                             //Ver historial
                             case 3:
@@ -215,13 +215,13 @@ public class Main {
                                         System.out.print("Digite su carnet: ");
                                         carnet = scanner.next();
                                         scanner.nextLine();
-                                        user.viewHistory(carnet, reservations);
+                                        user.viewHistory(carnet);
                                         break;
                                     case 2:
                                         System.out.print("Digite su cedula: ");
                                         IDPerson = scanner.next();
                                         scanner.nextLine();
-                                        user.viewHistory(IDPerson, reservations);
+                                        user.viewHistory(IDPerson);
 
                                         break;
                                     case 3:
@@ -232,7 +232,7 @@ public class Main {
                                 break;
                             //Ver espacios disponibles
                             case 4:
-                                user.seeAvailableList(listSpaces);
+                                user.seeAvailableList();
                                 break;
                             //Salida
                             case 5:
@@ -259,16 +259,11 @@ public class Main {
                                     break;
                                 //Eliminar
                                 case 3:
+                                    administrator.deleteSpaces();
                                     break;
                                 //Ver reservas
                                 case 4:
-                                    for (int i = 0; i < reservations.length; i++) {
-                                        if (reservations[i] == null) {
-                                            i = reservations.length;
-                                        } else {
-                                            System.out.println(reservations[i]);
-                                        }
-                                    }
+                                    administrator.seeListReservation();
                                     break;
                                 //Salida
                                 case 5:

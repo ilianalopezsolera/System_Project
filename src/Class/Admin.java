@@ -1,6 +1,9 @@
 package Class;
 
+import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.*;
@@ -90,9 +93,70 @@ public class Admin extends Person {
     }
 
     public void deleteSpaces() {
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.println("Digite los datos del espacio a eliminar");
+        System.out.print("Nombre: ");
+        String nameSpace = scanner.nextLine();
+
+        System.out.print("Fecha: ");
+        String date = scanner.next();
+        scanner.nextLine();
+
+        System.out.print("Hora: ");
+        String time = scanner.next();
+        scanner.nextLine();
+
+        File inputFile = new File("Calendario reservas.txt");
+        File tempFile = new File("tempFile.txt");
+
+        try (BufferedReader br = new BufferedReader(new FileReader(inputFile)); BufferedWriter bw = new BufferedWriter(new FileWriter(tempFile))) {
+
+            String line;
+
+            while ((line = br.readLine()) != null) {
+                // Si la línea contiene todas las palabras dadas, no la 
+                //escribimos en el archivo temporal
+                if (line.contains(nameSpace) && line.contains(date)
+                        && line.contains(time)) {
+                    continue; // Salta la línea
+                }
+                // Escribimos la línea en el archivo temporal
+                bw.write(line);
+                bw.newLine();
+            }
+
+        } catch (IOException e) {
+            System.out.println("Ocurrió un error al procesar el archivo.");
+            e.printStackTrace();
+            return;
+        }
+
+        // Reemplazar el archivo original con el archivo temporal
+        if (inputFile.delete()) {
+            if (!tempFile.renameTo(inputFile)) {
+                System.out.println("Error al renombrar el archivo temporal.");
+            } else {
+                System.out.println("Línea eliminada correctamente.");
+            }
+        } else {
+            System.out.println("Error al eliminar el archivo original.");
+        }
     }
 
     public void seeListReservation() {
+        try {
+            FileReader reader = new FileReader ("Historial sistema de reservas.txt");
+            BufferedReader br = new BufferedReader(reader);
+            
+            String line;
+            
+            while((line = br.readLine()) != null){
+                System.out.println(line);
+            }
+        } catch (IOException e) {
+            System.out.println("Error al leer el archivo" + e.getMessage());
+        }
     }
 
     @Override

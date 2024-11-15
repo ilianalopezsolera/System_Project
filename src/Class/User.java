@@ -1,5 +1,11 @@
 package Class;
 
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.Scanner;
 
 public class User extends Person {
@@ -15,59 +21,146 @@ public class User extends Person {
         super(name, carnet, contact);
     }
 
-    public void makeReservation(SportSpace[] sportSpaces, String spaceName, String file) {
-        for (int i = 0; i < sportSpaces.length; i++) {
-            if (sportSpaces[i].getName().equals(spaceName)) {  // Verifica el nombre del espacio
-                if (sportSpaces[i].getAvailability()) {  // Verifica si el espacio está disponible
-                    System.out.println("Espacios disponibles");
-                    System.out.println(sportSpaces[i]);
-                    //sportSpaces[1].setAvailability(false);
+    public void seeAvailableList() {
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.println("1. Ver toda la lista. \n2. Ver espacio especifico.");
+        int option = scanner.nextInt();
+        scanner.nextLine();
+
+        switch (option) {
+            case 1:
+                try {
+                    FileReader reader = new FileReader("Calendario reservas.txt");
+                    BufferedReader br = new BufferedReader(reader);
+
+                    String line;
+
+                    while ((line = br.readLine()) != null) {
+                        System.out.println(line);
+                    }
+                } catch (IOException e) {
+                    System.out.println("Error al leer el archivo" + e.getMessage());
+                }
+                break;
+            case 2:
+                System.out.print("Nombre del espacio deportivo: ");
+                String nameSpace = scanner.nextLine();
+
+                try {
+                    FileReader reader = new FileReader("Calendario reservas.txt");
+                    BufferedReader br = new BufferedReader(reader);
+
+                    String line;
+
+                    while ((line = br.readLine()) != null) {
+                        if (line.contains(nameSpace)) {
+                            System.out.println(line);
+                        }
+                    }
+                } catch (IOException e) {
+                    System.out.println("Error al leer el archivo" + e.getMessage());
+                }
+                break;
+            default:
+                break;
+        }
+    }
+
+    public void viewHistory(String identifier) {
+        boolean found = false;  // Para verificar si encontramos alguna reserv
+
+        try {
+            FileReader reader = new FileReader("Calendario reservas.txt");
+            BufferedReader br = new BufferedReader(reader);
+
+            String line;
+
+            while ((line = br.readLine()) != null) {
+                if (line.contains(identifier)) {
+                    System.out.println(line);
+                    found = true;
                 }
             }
+        } catch (IOException e) {
+            System.out.println("Error al leer el archivo " + e.getMessage());
+        }
+        if (!found) {
+            System.out.println("No se encontraron reservas para el carnet: " + identifier);
         }
     }
 
-    public void seeAvailableList(SportSpace[] sportSpaces) {
-        for (int i = 0; i < sportSpaces.length; i++) {
-            if (sportSpaces[i].getAvailability() == true) {
-                System.out.println("-------------------------------------------"
-                        + "----------------------------------------------------"
-                        + "-----");
-                System.out.println(sportSpaces[i]);
-            }
-        }
-    }
+    public void deleteReservation() {
+        Scanner scanner = new Scanner(System.in);
 
-//    public void viewHistory(String identifier, Reservation[] reservations) {
-//        for (int i = 0; i < reservations.length; i++) {
-//            if (reservations[i] == null) {
-//                System.out.println("Vacio");
-//                break;
-//            } else if (reservations[i].getUser().getCarnet().equalsIgnoreCase(identifier)) {
-//                System.out.println(reservations[i]);
-//            }
-//        }
-//    }
-    
-    public void viewHistory(String identifier, Reservation[] reservations) {
-    boolean encontrado = false;  // Para verificar si encontramos alguna reserva
-    
-    for (int i = 0; i < reservations.length; i++) {
-        if (reservations[i] == null) {
-            break;  // Salir del bucle si encontramos una posición vacía
-        } else if (reservations[i].getUser() != null && reservations[i].getUser().getIDPerson() != null) {
-            // Comparamos el carnet, asegurándonos de que no sea null
-            if (reservations[i].getUser().getIDPerson().equalsIgnoreCase(identifier)) {
-                System.out.println(reservations[i]);
-                encontrado = true;
-            }
+        System.out.println("1. Usuario estudiante. \n2. Usuario personal. "
+                + "\n3. salir.");
+        int option = scanner.nextInt();
+        scanner.nextLine();
+
+        switch (option) {
+            case 1:
+                System.out.println("Digite los datos");
+                System.out.print("Carnet: ");
+                String carnet = scanner.next();
+                scanner.nextLine();
+
+                System.out.print("Nombre del espacio deportivo: ");
+                String nameSpace = scanner.nextLine();
+
+                System.out.print("Fecha: ");
+                String date = scanner.next();
+                scanner.nextLine();
+
+                System.out.print("Hora: ");
+                String time = scanner.next();
+                scanner.nextLine();
+                
+                File inputFile = new File("Historial sistema de reservas.txt");
+                File tempFile = new File("tempFile.txt");
+
+                try (BufferedReader br = new BufferedReader(new FileReader(inputFile));
+                    BufferedWriter bw = new BufferedWriter(new FileWriter(tempFile))) {
+
+                    String line;
+
+                    while ((line = br.readLine()) != null) {
+                        // Si la línea contiene todas las palabras dadas, no la 
+                        //escribimos en el archivo temporal
+                        if (line.contains(carnet) && line.contains(nameSpace)
+                                && line.contains(date) && line.contains(time)) {
+                            continue; // Salta la línea
+                        }
+                        // Escribimos la línea en el archivo temporal
+                        bw.write(line);
+                        bw.newLine();
+                    }
+
+                } catch (IOException e) {
+                    System.out.println("Ocurrió un error al procesar el archivo.");
+                    e.printStackTrace();
+                    return;
+                }
+
+                // Reemplazar el archivo original con el archivo temporal
+                if (inputFile.delete()) {
+                    if (!tempFile.renameTo(inputFile)) {
+                        System.out.println("Error al renombrar el archivo temporal.");
+                    } else {
+                        System.out.println("Reserva eliminada correctamente.");
+                    }
+                } else {
+                    System.out.println("Error al eliminar el archivo original.");
+                }
+                break;
+            case 2:
+                break;
+            case 3:
+                break;
+            default:
+                break;
         }
     }
-    
-    if (!encontrado) {
-        System.out.println("No se encontraron reservas para el carnet: " + identifier);
-    }
-}
 
     @Override
     public void chooseLanguage() {
