@@ -68,12 +68,6 @@ public class ReservationSystem {
     public void manageReservations() {
     }
 
-    public void saveData() {
-    }
-
-    public void register() {
-    }
-
     public Reservation getHistory() {
         throw new UnsupportedOperationException("Not supported yet.");
     }

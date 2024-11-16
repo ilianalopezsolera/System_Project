@@ -110,7 +110,8 @@ public class Admin extends Person {
         File inputFile = new File("Calendario reservas.txt");
         File tempFile = new File("tempFile.txt");
 
-        try (BufferedReader br = new BufferedReader(new FileReader(inputFile)); BufferedWriter bw = new BufferedWriter(new FileWriter(tempFile))) {
+        try (BufferedReader br = new BufferedReader(new FileReader(inputFile));
+            BufferedWriter bw = new BufferedWriter(new FileWriter(tempFile))) {
 
             String line;
 
@@ -137,7 +138,7 @@ public class Admin extends Person {
             if (!tempFile.renameTo(inputFile)) {
                 System.out.println("Error al renombrar el archivo temporal.");
             } else {
-                System.out.println("Línea eliminada correctamente.");
+                System.out.println("Espacio eliminado correctamente.");
             }
         } else {
             System.out.println("Error al eliminar el archivo original.");

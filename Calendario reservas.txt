@@ -156,4 +156,3 @@ Nombre: Gimnasio, tipo: deportivo, disponibilidad: true, fecha: 07/12/24, hora: 
 Nombre: Gimnasio, tipo: deportivo, disponibilidad: true, fecha: 07/12/24, hora: 20:00
 Nombre: Cancha de voleibol, tipo: deportivo, disponibilidad: true, fecha: 08/12/24, hora: 08:00
 Nombre: Cancha de voleibol, tipo: deportivo, disponibilidad: true, fecha: 08/12/24, hora: 12:00
-Nombre: Cancha de voleibol, tipo: deportivo, disponibilidad: true, fecha: 08/12/24, hora: 16:00

@@ -72,26 +72,56 @@ public class Reservation {
         this.user = user;
     }
 
-    public boolean createReservation(Reservation reservation, SportSpace[] sportSpaces, String spaceName, String date, String time) {
-        boolean successful = false;
-        for (int i = 0; i < sportSpaces.length; i++) {
-            if (sportSpaces[i].getName().equals(spaceName) && sportSpaces[i].getDate().equals(date)
-                    && sportSpaces[i].getTime().equals(time)) {
-                sportSpaces[i].setAvailability(false);
+//    public boolean createReservation(Reservation reservation, SportSpace[] sportSpaces, String spaceName, String date, String time) {
+//        boolean successful = false;
+//        for (int i = 0; i < sportSpaces.length; i++) {
+//            if (sportSpaces[i].getName().equals(spaceName) && sportSpaces[i].getDate().equals(date)
+//                    && sportSpaces[i].getTime().equals(time)) {
+//                sportSpaces[i].setAvailability(false);
+//
+//                try (BufferedWriter writer = new BufferedWriter(new FileWriter("Historial"
+//                        + " sistema de reservas.txt", true))) { // Modo append
+//                    writer.write(reservation.toString());
+//                    writer.newLine(); // Añadir un salto de línea después de cada reserva
+//                    successful = true;
+//                } catch (IOException e) {
+//                    System.out.println("Error al guardar la reservación: " + e.getMessage());
+//                }
+//            }
+//        }
+//        return successful;
+//    }
 
-                try (BufferedWriter writer = new BufferedWriter(new FileWriter("Historial"
-                        + " sistema de reservas.txt", true))) { // Modo append
-                    writer.write(reservation.toString());
-                    writer.newLine(); // Añadir un salto de línea después de cada reserva
-                    successful = true;
-                } catch (IOException e) {
-                    System.out.println("Error al guardar la reservación: " + e.getMessage());
+    public void createReservation(Reservation reservation, String spaceName, String date, String time){
+
+        try{
+            FileReader reader = new FileReader("Calendario reservas.txt");
+            BufferedReader br = new BufferedReader(reader);
+            
+            String line;
+            
+            while((line = br.readLine()) != null){
+                if (line.contains(spaceName) && line.contains(date)
+                        && line.contains(time)) {
+                    line = line.replace("true", "false");
+                    System.out.println(line);
+                    
+                    try{
+                        FileWriter writer = new FileWriter("Historial sistema de reservas.txt", true);
+                        BufferedWriter bw = new BufferedWriter(writer);
+                        
+                        bw.write(reservation.toString());
+                        bw.newLine();
+                        
+                    }catch(IOException e){
+                        System.out.println("Error al guardar la reservación: " + e.getMessage());
+                    }
                 }
             }
+        }catch(IOException e){
+            System.out.println("Error al leer el archivo" + e.getMessage());
         }
-        return successful;
     }
-
     public void sendConfirmation() {
     }
 

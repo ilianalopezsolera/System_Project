@@ -111,23 +111,23 @@ public class SportSpace {
         }
     }
 
-  public boolean seeAvailability(SportSpace[] sportSpaces, String spaceName) {
+  public boolean seeAvailability(String spaceName) {
     boolean found = false;  // Variable para registrar si encuentra espacios disponibles
     
-    for (int i = 0; i < sportSpaces.length; i++) {
-        if (sportSpaces[i].getName().trim().equalsIgnoreCase(spaceName)) {  // Verifica el nombre del espacio
-            if (sportSpaces[i].availability) {  // Verifica si el espacio está disponible
-                System.out.println("-------------------------------------------"
-                        + "----------------------------------------------------"
-                        + "-----");
-                System.out.println(sportSpaces[i]);
-                found = true;  // Marca que encontró al menos un espacio disponible
+    try{
+        FileReader reader = new FileReader("Calendario reservas.txt");
+        BufferedReader br = new BufferedReader(reader);
+        
+        String line;
+        
+        while((line = br.readLine()) != null){
+            if (line.contains(spaceName)) {
+                System.out.println(line);
+                found = true;
             }
         }
-    }
-    
-    if (!found) {
-        System.out.println("No hay espacios disponibles con el nombre '" + spaceName + "'.");
+    }catch(IOException e){
+        System.out.println("Error al leer el archivo" + e.getMessage());
     }
     
     return found;
