@@ -80,10 +80,11 @@ public class SportSpace {
                 SportSpace[] sportSpaces = new SportSpace[156]; // Arreglo con el tamaño necesario
         int index = 0;
 
-        try (BufferedReader br = new BufferedReader(new FileReader("Calendario reservas.txt"))) {
+        try (BufferedReader reader = new BufferedReader
+        (new FileReader("Calendario reservas.txt"))) {
             String line;
 
-            while ((line = br.readLine()) != null && index < sportSpaces.length) {
+            while ((line = reader.readLine()) != null && index < sportSpaces.length) {
                 String[] parts = line.split(", ");
 
                 // Extraer y procesar los datos
@@ -98,6 +99,7 @@ public class SportSpace {
             }
 
         } catch (IOException e) {
+            System.out.println("Error al leer el archivo.");
             e.printStackTrace();
         }
         return sportSpaces;
@@ -113,21 +115,22 @@ public class SportSpace {
 
   public boolean seeAvailability(String spaceName) {
     boolean found = false;  // Variable para registrar si encuentra espacios disponibles
+    System.out.println("ESPACIOS DISPONIBLES");
     
-    try{
-        FileReader reader = new FileReader("Calendario reservas.txt");
-        BufferedReader br = new BufferedReader(reader);
-        
+    try(BufferedReader reader = new BufferedReader
+        (new FileReader("Calendario reservas.txt"))){
+   
         String line;
         
-        while((line = br.readLine()) != null){
-            if (line.contains(spaceName)) {
+        while((line = reader.readLine()) != null){
+            if (line.contains(spaceName) && line.contains("true")) {
                 System.out.println(line);
                 found = true;
             }
         }
     }catch(IOException e){
-        System.out.println("Error al leer el archivo" + e.getMessage());
+        System.out.println("Error al leer el archivo.");
+        e.printStackTrace();
     }
     
     return found;

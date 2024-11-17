@@ -1,5 +1,6 @@
 package Class;
 
+import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.*;
@@ -39,18 +40,6 @@ public class Main {
         String timeReservation;
         String password;
 
-//        for (int i = 0; i < reservations.length; i++) {
-//            if (reservations[i] == null) {
-//                i = reservations.length;
-//            } else {
-//                System.out.println(reservations[i]);
-//            }
-//        }
-
-        String line = "Hola mundo";
-        line = line.replace("mundo", "mis amores");
-        System.out.println(line);
-        
         System.out.println("----- SISTEMA DE ESPACIOS DEPORTIVOS -----");
         System.out.println("LENGUAJE");
         System.out.println("1. Español. 2. Frances. 3. Portugues. 4. Salir.");
@@ -76,128 +65,7 @@ public class Main {
                         switch (option) {
                             //Reservar
                             case 1:
-                                System.out.println("----- TIPO DE USUARIO -----");
-                                System.out.println("1. Estudiante. \n2. Personal."
-                                        + " \n3. Salir");
-                                option = scanner.nextInt();
-                                scanner.nextLine();
-                                switch (option) {
-                                    //Tipo estudiante 
-                                    case 1:
-                                        System.out.println("----- ESTUDIANTE UCR -----");
-                                        System.out.print("Digite el nombre "
-                                                + "del espacio a reservar: ");
-                                        spaceName = scanner.nextLine().trim();
-                                        System.out.println();
-                                        System.out.println("ESPACIOS DISPONIBLES");
-                                        if (sportSpace.seeAvailability(spaceName) == true) {
-                                            System.out.println("Seccion datos "
-                                                    + "personales");
-                                            // Pedir al usuario que ingrese los datos
-                                            System.out.print("Nombre: ");
-                                            name = scanner.nextLine();
-
-                                            System.out.print("Carnet: ");
-                                            carnet = scanner.next();
-
-                                            System.out.print("Numero de "
-                                                    + "telefono: ");
-                                            number = scanner.nextInt();
-                                            scanner.nextLine();
-
-                                            System.out.print("Direccion "
-                                                    + "de correo: ");
-                                            mail = scanner.next();
-
-                                            Contact contact = new Contact(mail, number);
-                                            User userEstudent = new User(name, carnet, contact);
-
-                                            do {
-                                                System.out.println("Escoja "
-                                                        + "una fecha y hora");
-
-                                                System.out.print("Fecha: ");
-                                                dateReservation = scanner.next();
-
-                                                System.out.print("Hora: ");
-                                                timeReservation = scanner.next();
-
-                                                Reservation reservationStudent
-                                                        = new Reservation(dateReservation,
-                                                                timeReservation, spaceName,
-                                                                true, userEstudent);
-                                                reservationStudent.createReservation(reservationStudent,
-                                                        spaceName, dateReservation,
-                                                        timeReservation);
-                                                System.out.println("1. Seguir reservando. 2. Salir.");
-                                                option = scanner.nextInt();
-                                                scanner.nextLine();
-                                            } while (option == 1);
-                                        }
-                                        break;
-                                    //Tipo personal
-                                    case 2:
-                                        System.out.println("----- USUARIO PERSONAL UCR -----");
-                                        System.out.print("Digite el nombre "
-                                                + "del espacio a reservar: ");
-                                        spaceName = scanner.nextLine();
-                                        
-                                        if (sportSpace.seeAvailability(spaceName) == true) {
-                                            System.out.println("Seccion "
-                                                    + "datos personales");
-                                            // Pedir al usuario que ingrese los datos
-                                            System.out.print("Nombre: ");
-                                            name = scanner.nextLine();
-
-                                            System.out.print("Cedula: ");
-                                            IDPerson = scanner.next();
-                                            scanner.nextLine();
-
-                                            System.out.print("Numero de "
-                                                    + "telefono: ");
-                                            number = scanner.nextInt();
-                                            scanner.nextLine();
-
-                                            System.out.print("Direccion "
-                                                    + "de correo: ");
-                                            mail = scanner.next();
-                                            scanner.nextLine();
-
-                                            Contact contact = new Contact(mail, number);
-                                            User userEstudent = new User(name, IDPerson, contact);
-
-                                            do {
-                                                System.out.println("Escoja "
-                                                        + "una fecha y hora");
-
-                                                System.out.print("Fecha: ");
-                                                dateReservation = scanner.next();
-                                                scanner.nextLine();
-
-                                                System.out.print("Hora: ");
-                                                timeReservation = scanner.next();
-                                                scanner.nextLine();
-
-                                                Reservation reservationStudent
-                                                        = new Reservation(dateReservation,
-                                                                timeReservation, spaceName,
-                                                                true, userEstudent);
-                                                reservationStudent.createReservation(reservationStudent,
-                                                        spaceName, dateReservation,
-                                                        timeReservation);
-                                                
-                                                System.out.println("1. Seguir reservando. 2. Salir.");
-                                                option = scanner.nextInt();
-                                                scanner.nextLine();
-                                            } while (option == 1);
-                                        }
-                                        break;
-                                    //Salida
-                                    case 3:
-                                        break;
-                                    default:
-                                        break;
-                                }
+                                reservation.createReservation(sportSpace);
                                 break;
                             //Eliminar reserva
                             case 2:
@@ -232,7 +100,6 @@ public class Main {
                                         IDPerson = scanner.next();
                                         scanner.nextLine();
                                         user.viewHistory(IDPerson);
-
                                         break;
                                     case 3:
                                         break;
@@ -309,123 +176,7 @@ public class Main {
                         switch (option) {
                             //Reservar
                             case 1:
-                                System.out.println("----- TYPE D’UTILISATEUR -----");
-                                System.out.println("1. Étudiant. \n2. Personnel."
-                                        + " \n3. Congé");
-                                option = scanner.nextInt();
-                                scanner.nextLine();
-                                
-                                switch (option) {
-                                    case 1:
-                                        System.out.println("----- ÉTUDIANT UCR -----");
-                                        
-                                        System.out.print("Saisissez le nom de l'espace sportif: ");
-                                        spaceName = scanner.nextLine();
-                                        
-                                        if (sportSpace.seeAvailability(spaceName) == true) {
-                                            System.out.println("Section données personnelles");
-                                            // Pedir al usuario que ingrese los datos
-                                            System.out.print("Nom: ");
-                                            name = scanner.nextLine();
-
-                                            System.out.print("Carte: ");
-                                            carnet = scanner.next();
-                                            scanner.nextLine();
-
-                                            System.out.print("téléphone: ");
-                                            number = scanner.nextInt();
-                                            scanner.nextLine();
-
-                                            System.out.print("courrier: ");
-                                            mail = scanner.next();
-                                            scanner.nextLine();
-
-                                            Contact contact = new Contact(mail, number);
-                                            User userEstudent = new User(name, carnet, contact);
-
-                                            do {
-                                                System.out.println("Choisissez"
-                                                        + "une date et une heure");
-                                                System.out.print("Date: ");
-                                                dateReservation = scanner.next();
-                                                scanner.nextLine();
-
-                                                System.out.print("Heure: ");
-                                                timeReservation = scanner.next();
-                                                scanner.nextLine();
-
-                                                Reservation reservationStudent
-                                                        = new Reservation(dateReservation,
-                                                                timeReservation, spaceName,
-                                                                true, userEstudent);
-                                                reservationStudent.createReservation(reservationStudent,
-                                                        spaceName, dateReservation,
-                                                        timeReservation);
-                                                System.out.println("1. Continuer la réservation. 2. Sors.");
-                                                option = scanner.nextInt();
-                                                scanner.nextLine();
-                                            } while (option == 1);
-                                        }
-                                        break;
-                                    case 2:
-                                        System.out.println("----- Pesonnel UCR -----");
-                                        System.out.print("aisissez le nom de l'espace"
-                                                + " sportif: ");
-                                        spaceName = scanner.nextLine();
-                                        
-                                        if (sportSpace.seeAvailability(spaceName) == true) {
-                                            System.out.println("Section données"
-                                                    + " personnelles");
-                                            // Pedir al usuario que ingrese los datos
-                                            System.out.print("Nom: ");
-                                            name = scanner.nextLine();
-
-                                            System.out.print("Id: ");
-                                            IDPerson = scanner.next();
-                                            scanner.nextLine();
-
-                                            System.out.print("téléphone: ");
-                                            number = scanner.nextInt();
-                                            scanner.nextLine();
-
-                                            System.out.print("courrier: ");
-                                            mail = scanner.next();
-                                            scanner.nextLine();
-
-                                            Contact contact = new Contact(mail, number);
-                                            User userEstudent = new User(name, IDPerson, contact);
-
-                                            do {
-                                                System.out.println("Choisissez"
-                                                        + "une date et une heure");
-
-                                                System.out.print("Date: ");
-                                                dateReservation = scanner.next();
-                                                scanner.nextLine();
-
-                                                System.out.print("Heure: ");
-                                                timeReservation = scanner.next();
-                                                scanner.nextLine();
-
-                                                Reservation reservationStudent
-                                                        = new Reservation(dateReservation,
-                                                                timeReservation, spaceName,
-                                                                true, userEstudent);
-                                                reservationStudent.createReservation(reservationStudent,
-                                                        spaceName, dateReservation,
-                                                        timeReservation);
-                                                System.out.println("1. Continuer la réservation. 2. Sors.");
-                                                option = scanner.nextInt();
-                                                scanner.nextLine();
-                                            } while (option == 1);
-
-                                        }
-                                        break;
-                                    case 3:
-                                        break;
-                                    default:
-                                        break;
-                                }
+                                reservation.createReservation(sportSpace);
                                 break;
                             //Eliminar reserva
                             case 2:
@@ -492,110 +243,7 @@ public class Main {
                         switch (option) {
                             //Reservar
                             case 1:
-                                System.out.println("----- TIPO DE USUÁRIO -----");
-                                System.out.println("1. Estudante. n2. Pessoal."
-                                        + " n3. Sair");
-                                option = scanner.nextInt();
-                                switch (option) {
-                                    case 1:
-                                        System.out.println("----- ESTUDANTE UCR -----");
-                                        System.out.print("Nome do espaco desportivo: ");
-                                        spaceName = scanner.nextLine().trim();
-                                        if (sportSpace.seeAvailability(spaceName) == true) {
-                                            System.out.println("Dados pessoais");
-                                            // Pedir al usuario que ingrese los datos
-                                            System.out.print("Nome: ");
-                                            name = scanner.nextLine();
-
-                                            System.out.print("Cartao: ");
-                                            carnet = scanner.next();
-
-                                            System.out.print("Telefone: ");
-                                            number = scanner.nextInt();
-
-                                            System.out.print("Correio: ");
-                                            mail = scanner.next();
-
-                                            Contact contact = new Contact(mail, number);
-                                            User userEstudent = new User(name, carnet, contact);
-
-                                            do {
-                                                System.out.println("Escolha data e hora");
-
-                                                System.out.print("Data: ");
-                                                dateReservation = scanner.next();
-                                                scanner.nextLine();
-
-                                                System.out.print("Hora: ");
-                                                timeReservation = scanner.next();
-                                                scanner.nextLine();
-
-                                                Reservation reservationStudent
-                                                        = new Reservation(dateReservation,
-                                                                timeReservation, spaceName,
-                                                                true, userEstudent);
-                                                reservationStudent.createReservation(reservationStudent,
-                                                        spaceName, dateReservation,
-                                                        timeReservation);
-                                                System.out.println("1. Continuar a reserva. 2. Saia.");
-                                                option = scanner.nextInt();
-                                                scanner.nextLine();
-                                            } while (option == 1);
-
-                                        }
-                                        break;
-                                    case 2:
-                                        System.out.println("----- Pessoal UCR -----");
-                                        System.out.print("Nome do espaco desportivo: ");
-                                        spaceName = scanner.nextLine().trim();
-                                        if (sportSpace.seeAvailability(spaceName) == true) {
-                                            System.out.println("Dados pessoais");
-                                            // Pedir al usuario que ingrese los datos
-                                            System.out.print("Nome: ");
-                                            name = scanner.nextLine();
-
-                                            System.out.print("Id: ");
-                                            IDPerson = scanner.next();
-
-                                            System.out.print("Telefone: ");
-                                            number = scanner.nextInt();
-
-                                            System.out.print("Correio: ");
-                                            mail = scanner.next();
-
-                                            Contact contact = new Contact(mail, number);
-                                            User userEstudent = new User(name, IDPerson, contact);
-
-                                            do {
-                                                System.out.println("Escolha data e hora");
-                                                
-                                                System.out.print("Data: ");
-                                                dateReservation = scanner.next();
-                                                scanner.nextLine();
-                                                
-                                                System.out.print("Hora: ");
-                                                timeReservation = scanner.next();
-                                                scanner.nextLine();
-
-                                                Reservation reservationStudent
-                                                        = new Reservation(dateReservation,
-                                                                timeReservation, spaceName,
-                                                                true, userEstudent);
-                                                reservationStudent.createReservation(reservationStudent,
-                                                        spaceName, dateReservation,
-                                                        timeReservation);
-                                                
-                                                System.out.println("1. Continuar a reserva. 2. Saia.");
-                                                option = scanner.nextInt();
-                                                scanner.nextLine();
-                                            } while (option == 1);
-                                        }
-                                        break;
-                                    case 3:
-                                        break;
-                                    default:
-                                        break;
-                                }
+                                reservation.createReservation(sportSpace);
                                 break;
                             //Eliminar reserva
                             case 2:

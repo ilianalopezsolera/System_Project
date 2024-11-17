@@ -6,7 +6,7 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.Date;
+import java.util.*;
 
 public class Reservation {
 
@@ -72,56 +72,128 @@ public class Reservation {
         this.user = user;
     }
 
-//    public boolean createReservation(Reservation reservation, SportSpace[] sportSpaces, String spaceName, String date, String time) {
-//        boolean successful = false;
-//        for (int i = 0; i < sportSpaces.length; i++) {
-//            if (sportSpaces[i].getName().equals(spaceName) && sportSpaces[i].getDate().equals(date)
-//                    && sportSpaces[i].getTime().equals(time)) {
-//                sportSpaces[i].setAvailability(false);
-//
-//                try (BufferedWriter writer = new BufferedWriter(new FileWriter("Historial"
-//                        + " sistema de reservas.txt", true))) { // Modo append
-//                    writer.write(reservation.toString());
-//                    writer.newLine(); // Añadir un salto de línea después de cada reserva
-//                    successful = true;
-//                } catch (IOException e) {
-//                    System.out.println("Error al guardar la reservación: " + e.getMessage());
-//                }
-//            }
-//        }
-//        return successful;
-//    }
+    public void createReservation(SportSpace sportSpace) {
 
-    public void createReservation(Reservation reservation, String spaceName, String date, String time){
+        Scanner scanner = new Scanner(System.in);
 
-        try{
-            FileReader reader = new FileReader("Calendario reservas.txt");
-            BufferedReader br = new BufferedReader(reader);
-            
-            String line;
-            
-            while((line = br.readLine()) != null){
-                if (line.contains(spaceName) && line.contains(date)
-                        && line.contains(time)) {
-                    line = line.replace("true", "false");
-                    System.out.println(line);
-                    
-                    try{
-                        FileWriter writer = new FileWriter("Historial sistema de reservas.txt", true);
-                        BufferedWriter bw = new BufferedWriter(writer);
-                        
-                        bw.write(reservation.toString());
-                        bw.newLine();
-                        
-                    }catch(IOException e){
-                        System.out.println("Error al guardar la reservación: " + e.getMessage());
-                    }
-                }
+        String spaceName = "";
+        String name = "";
+        String identifier = "";
+        long number = 0;
+        String mail = "";
+        boolean reservation = false;
+        String dateReservation = "";
+        String timeReservation = "";
+
+        File inputFile = new File("Calendario reservas.txt");
+        File tempFile = new File("tempFile.txt");
+
+        System.out.print("Nombre del espacio deportivo: ");
+        spaceName = scanner.nextLine();
+
+        if (sportSpace.seeAvailability(spaceName)) {
+            System.out.println("----- RESERVA COMO -----");
+            System.out.println("1. Estudiante. \n2. Personal.");
+            int option = scanner.nextInt();
+            scanner.nextLine();
+
+            switch (option) {
+                case 1:
+                    System.out.print("Nombre: ");
+                    name = scanner.nextLine();
+
+                    System.out.print("Carnet: ");
+                    identifier = scanner.next();
+                    scanner.nextLine();
+
+                    System.out.print("Numero de telefono: ");
+                    number = scanner.nextLong();
+                    scanner.nextLine();
+
+                    System.out.print("Direccion de correo: ");
+                    mail = scanner.next();
+                    scanner.nextLine();
+                    break;
+                case 2:
+                    System.out.print("Nombre: ");
+                    name = scanner.nextLine();
+
+                    System.out.print("Identificacion: ");
+                    identifier = scanner.next();
+                    scanner.nextLine();
+
+                    System.out.print("Numero de telefono: ");
+                    number = scanner.nextLong();
+                    scanner.nextLine();
+
+                    System.out.print("Direccion de correo: ");
+                    mail = scanner.next();
+                    scanner.nextLine();
+                    break;
+                default:
+                    break;
             }
-        }catch(IOException e){
-            System.out.println("Error al leer el archivo" + e.getMessage());
+
+            Contact contact = new Contact(mail, number);
+            User user = new User(name, identifier, contact);
+
+            do {
+                System.out.println("Escoja una fecha y hora");
+
+                System.out.print("Fecha: ");
+                dateReservation = scanner.next();
+                scanner.nextLine();
+
+                System.out.print("Hora: ");
+                timeReservation = scanner.next();
+                scanner.nextLine();
+
+                Reservation newReservation = new Reservation(dateReservation, timeReservation, spaceName, true, user);
+
+                //Se registra la informacion del espacio deportivo y el usuario en el historial de reservas.
+                try (BufferedWriter writer = new BufferedWriter(new FileWriter("Historial sistema de reservas.txt",true))) {
+                    writer.write(newReservation.toString());
+                    writer.newLine();
+                } catch (IOException e) {
+                    System.out.println("Error al registrar la reserva.");
+                    e.printStackTrace();
+                }
+
+                //Cambiar el estado de disponible a mo disponible en el calendario
+                try (BufferedReader br = new BufferedReader(new FileReader(inputFile)); BufferedWriter bw = new BufferedWriter(new FileWriter(tempFile))) {
+                    String line;
+
+                    while ((line = br.readLine()) != null) {
+                        if (line.contains(spaceName) && line.contains(dateReservation) && line.contains(timeReservation)) {
+                            line = line.replace("true", "false");
+                        }
+                        bw.write(line);
+                        bw.newLine();
+                    }
+                } catch (IOException e) {
+                    System.out.println("Error al procesar el archivo");
+                    e.printStackTrace();
+                }
+
+                // Reemplazar el archivo original con el archivo temporal
+                if (inputFile.delete()) {
+                    if (!tempFile.renameTo(inputFile)) {
+                        System.out.println("Error al renombrar el archivo temporal.");
+                    } else {
+                        System.out.println("Espacio reservado correctamente.");
+                    }
+                } else {
+                    System.out.println("Error al eliminar el archivo original.");
+                }
+                
+                System.out.println();
+                System.out.println("1. Seguir reservando. \n2. Salir.");
+                option = scanner.nextInt();
+
+            } while (option == 1);
         }
     }
+    
     public void sendConfirmation() {
     }
 

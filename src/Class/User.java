@@ -30,36 +30,36 @@ public class User extends Person {
 
         switch (option) {
             case 1:
-                try {
-                    FileReader reader = new FileReader("Calendario reservas.txt");
-                    BufferedReader br = new BufferedReader(reader);
+                try(BufferedReader reader = new BufferedReader
+                (new FileReader("Calendario reservas.txt"))) {
 
                     String line;
 
-                    while ((line = br.readLine()) != null) {
+                    while ((line = reader.readLine()) != null) {
                         System.out.println(line);
                     }
                 } catch (IOException e) {
-                    System.out.println("Error al leer el archivo" + e.getMessage());
+                    System.out.println("Error al leer el archivo.");
+                    e.printStackTrace();
                 }
                 break;
             case 2:
                 System.out.print("Nombre del espacio deportivo: ");
                 String nameSpace = scanner.nextLine();
 
-                try {
-                    FileReader reader = new FileReader("Calendario reservas.txt");
-                    BufferedReader br = new BufferedReader(reader);
+                try(BufferedReader reader = new BufferedReader
+                (new FileReader("Calendario reservas.txt"))) {
 
                     String line;
 
-                    while ((line = br.readLine()) != null) {
+                    while ((line = reader.readLine()) != null) {
                         if (line.contains(nameSpace)) {
                             System.out.println(line);
                         }
                     }
                 } catch (IOException e) {
-                    System.out.println("Error al leer el archivo" + e.getMessage());
+                    System.out.println("Error al leer el archivo.");
+                    e.printStackTrace();
                 }
                 break;
             default:
@@ -70,20 +70,20 @@ public class User extends Person {
     public void viewHistory(String identifier) {
         boolean found = false;  // Para verificar si encontramos alguna reserv
 
-        try {
-            FileReader reader = new FileReader("Calendario reservas.txt");
-            BufferedReader br = new BufferedReader(reader);
+        try(BufferedReader reader = new BufferedReader
+        (new FileReader("Calendario reservas.txt"))) {
 
             String line;
 
-            while ((line = br.readLine()) != null) {
+            while ((line = reader.readLine()) != null) {
                 if (line.contains(identifier)) {
                     System.out.println(line);
                     found = true;
                 }
             }
         } catch (IOException e) {
-            System.out.println("Error al leer el archivo " + e.getMessage());
+            System.out.println("Error al leer el archivo.");
+            e.printStackTrace();
         }
         if (!found) {
             System.out.println("No se encontraron reservas para el carnet: " + identifier);
@@ -137,7 +137,7 @@ public class User extends Person {
                     }
 
                 } catch (IOException e) {
-                    System.out.println("Ocurrió un error al procesar el archivo.");
+                    System.out.println("Error al procesar el archivo.");
                     e.printStackTrace();
                     return;
                 }

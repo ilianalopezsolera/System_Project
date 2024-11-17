@@ -49,9 +49,10 @@ public class Admin extends Person {
 
     public void registerSpaces() {
         int numberSpaces;
-        try {
-            FileWriter fw = new FileWriter("Calendario reservas.txt", true);
-            BufferedWriter bw = new BufferedWriter(fw);
+
+        try(BufferedWriter writer = new BufferedWriter
+        (new FileWriter("Calendario reservas.txt", true))) {
+            
             Scanner scanner = new Scanner(System.in);
 
             System.out.println("Registrar espacio");
@@ -76,16 +77,14 @@ public class Admin extends Person {
                 String time = scanner.next();
                 scanner.nextLine();
 
-                bw.newLine();
-                bw.write("Nombre: " + name + ", tipo: " + type + ", disponibilidad: "
+                writer.write("Nombre: " + name + ", tipo: " + type + ", disponibilidad: "
                         + true + ", fecha: " + date + ", hora: " + time);
+                writer.newLine();
             }
-
-            bw.close();
             System.out.println("Datos guardados en calendario de reservas");
         } catch (IOException e) {
-            System.out.println("Ocurrió un error al escribir el fichero: "
-                    + e.getMessage());
+            System.out.println("Ocurrió un error al escribir el fichero.");
+            e.printStackTrace();
         }
     }
 
@@ -130,7 +129,6 @@ public class Admin extends Person {
         } catch (IOException e) {
             System.out.println("Ocurrió un error al procesar el archivo.");
             e.printStackTrace();
-            return;
         }
 
         // Reemplazar el archivo original con el archivo temporal
@@ -156,7 +154,8 @@ public class Admin extends Person {
                 System.out.println(line);
             }
         } catch (IOException e) {
-            System.out.println("Error al leer el archivo" + e.getMessage());
+            System.out.println("Error al leer el archivo.");
+            e.printStackTrace();
         }
     }
 
