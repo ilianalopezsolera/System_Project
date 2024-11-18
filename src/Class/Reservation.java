@@ -7,6 +7,9 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.*;
+import java.util.Properties;
+import javax.mail.*;
+import javax.mail.internet.*;
 
 public class Reservation {
 
@@ -73,7 +76,6 @@ public class Reservation {
     }
 
     public void createReservation(SportSpace sportSpace) {
-
         Scanner scanner = new Scanner(System.in);
 
         String spaceName = "";
@@ -92,6 +94,7 @@ public class Reservation {
         spaceName = scanner.nextLine();
 
         if (sportSpace.seeAvailability(spaceName)) {
+            System.out.println();
             System.out.println("----- RESERVA COMO -----");
             System.out.println("1. Estudiante. \n2. Personal.");
             int option = scanner.nextInt();
@@ -151,7 +154,7 @@ public class Reservation {
                 Reservation newReservation = new Reservation(dateReservation, timeReservation, spaceName, true, user);
 
                 //Se registra la informacion del espacio deportivo y el usuario en el historial de reservas.
-                try (BufferedWriter writer = new BufferedWriter(new FileWriter("Historial sistema de reservas.txt",true))) {
+                try (BufferedWriter writer = new BufferedWriter(new FileWriter("Historial sistema de reservas.txt", true))) {
                     writer.write(newReservation.toString());
                     writer.newLine();
                 } catch (IOException e) {
@@ -181,20 +184,55 @@ public class Reservation {
                         System.out.println("Error al renombrar el archivo temporal.");
                     } else {
                         System.out.println("Espacio reservado correctamente.");
+                        newReservation.sendConfirmation();
                     }
                 } else {
                     System.out.println("Error al eliminar el archivo original.");
                 }
-                
+
                 System.out.println();
-                System.out.println("1. Seguir reservando. \n2. Salir.");
+                System.out.println("1. Realizar otra reserva. \n2. Salir.");
                 option = scanner.nextInt();
 
             } while (option == 1);
         }
     }
-    
+
     public void sendConfirmation() {
+        // Dirección de correo y credenciales
+        String to = "dilangonzalez2517@gmail.com"; // Cambia esto con el destinatario
+        String from = "proyectoprogra29@gmail.com"; // Tu correo de Gmail
+        String password = "rygo gjzq aeam gqpc"; // Tu contraseña de Gmail
+
+        // Configuración de las propiedades del correo
+        Properties properties = new Properties();
+        properties.put("mail.smtp.host", "smtp.gmail.com");
+        properties.put("mail.smtp.port", "587");
+        properties.put("mail.smtp.auth", "true");
+        properties.put("mail.smtp.starttls.enable", "true");
+
+        // Crear una sesión de correo autenticada
+        Session session = Session.getInstance(properties, new javax.mail.Authenticator() {
+            protected PasswordAuthentication getPasswordAuthentication() {
+                return new PasswordAuthentication(from, password);
+            }
+        });
+
+        try {
+            // Crear el mensaje
+            Message message = new MimeMessage(session);
+            message.setFrom(new InternetAddress(from));
+            message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(to));
+            message.setSubject("Sistema de Reservas de Espacios Deportivos UCR");
+            message.setText("Se ha confirmado su reserva.");
+
+            // Enviar el correo
+            Transport.send(message);
+            System.out.println("Se ha enviado un correo con la confirmacion de su reserva.");
+
+        } catch (MessagingException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override

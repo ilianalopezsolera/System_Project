@@ -67,11 +67,32 @@ public class User extends Person {
         }
     }
 
-    public void viewHistory(String identifier) {
+    public void viewHistory() {
+        Scanner scanner = new Scanner(System.in);
         boolean found = false;  // Para verificar si encontramos alguna reserv
-
+        String identifier = "";
+        
+        System.out.println("1. Estudiante. \n2. Personal.");
+        int option = scanner.nextInt();
+        scanner.nextLine();
+        
+        switch(option){
+            case 1:
+                System.out.print("Digite su carnet: ");
+                identifier = scanner.next();
+                scanner.nextLine();
+                break;
+            case 2:
+                System.out.print("Digite su cedula: ");
+                identifier = scanner.next();
+                scanner.nextLine();
+                break;
+            default:
+                break;
+        }
+        
         try(BufferedReader reader = new BufferedReader
-        (new FileReader("Calendario reservas.txt"))) {
+        (new FileReader("Historial sistema de reservas.txt"))) {
 
             String line;
 

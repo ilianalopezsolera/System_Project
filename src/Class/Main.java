@@ -20,25 +20,11 @@ public class Main {
 
         ReservationSystem reservationSystem = new ReservationSystem();
         Reservation reservation = new Reservation();
-//        Reservation[] reservations = reservation.reservationList();
-
         SportSpace sportSpace = new SportSpace();
-        SportSpace[] listSpaces = sportSpace.fillSporSpaces();
-
         User user = new User();
 
         int option = 0;
         Scanner scanner = new Scanner(System.in);
-
-        String name;
-        String carnet;
-        long number;
-        String mail;
-        String IDPerson = "";
-        String spaceName;
-        String dateReservation;
-        String timeReservation;
-        String password;
 
         System.out.println("----- SISTEMA DE ESPACIOS DEPORTIVOS -----");
         System.out.println("LENGUAJE");
@@ -69,43 +55,11 @@ public class Main {
                                 break;
                             //Eliminar reserva
                             case 2:
-                                System.out.println("Digite los datos para cancelar "
-                                        + "la reserva");
-                                System.out.println("Fecha: ");
-                                dateReservation = scanner.next();
-                                scanner.nextLine();
-                                System.out.println("Hora: ");
-                                timeReservation = scanner.next();
-                                scanner.nextLine();
-                                System.out.println("Espacio deportivo: ");
-                                spaceName = scanner.nextLine();
                                 user.deleteReservation();
                                 break;
                             //Ver historial
                             case 3:
-                                System.out.println("----- TIPO DE USUARIO -----");
-                                System.out.println("1. Estudiante. \n2. Personal."
-                                        + " \n3. Salir");
-                                option = scanner.nextInt();
-                                scanner.nextLine();
-                                switch (option) {
-                                    case 1:
-                                        System.out.print("Digite su carnet: ");
-                                        carnet = scanner.next();
-                                        scanner.nextLine();
-                                        user.viewHistory(carnet);
-                                        break;
-                                    case 2:
-                                        System.out.print("Digite su cedula: ");
-                                        IDPerson = scanner.next();
-                                        scanner.nextLine();
-                                        user.viewHistory(IDPerson);
-                                        break;
-                                    case 3:
-                                        break;
-                                    default:
-                                        break;
-                                }
+                                user.viewHistory();
                                 break;
                             //Ver espacios disponibles
                             case 4:
@@ -124,7 +78,8 @@ public class Main {
                             System.out.println("----- OPCIONES ADMINISTRADOR -----");
                             System.out.println("1. Registrar espacio. "
                                     + "\n2. Modificar espacio. "
-                                    + "\n3. Eliminar espacio. \n4. Ver reservas. \n5. Salir");
+                                    + "\n3. Eliminar espacio. \n4. Ver reservas."
+                                    + "\n5. Ver espacios deportivos. \n6. Salir.");
                             option = scanner.nextInt();
                             scanner.nextLine();
                             switch (option) {
@@ -134,6 +89,7 @@ public class Main {
                                     break;
                                 //Modificar
                                 case 2:
+                                    administrator.modifySpaces();
                                     break;
                                 //Eliminar
                                 case 3:
@@ -143,8 +99,9 @@ public class Main {
                                 case 4:
                                     administrator.seeListReservation();
                                     break;
-                                //Salida
+                                //Ver espacios deportivos
                                 case 5:
+                                    administrator.seeSportSpaces();
                                     break;
                                 default:
                                     break;
@@ -180,12 +137,15 @@ public class Main {
                                 break;
                             //Eliminar reserva
                             case 2:
+                                user.deleteReservation();
                                 break;
                             //Ver historial
                             case 3:
+                                user.viewHistory();
                                 break;
                             //Ver espacios disponibles
                             case 4:
+                                user.seeAvailableList();
                                 break;
                             //Salida
                             case 5:
@@ -195,30 +155,39 @@ public class Main {
                         }
                         break;
                     case 2:
-                        System.out.println("----- ADMINISTRATEUR -----");
-                        System.out.println("1. Espace d’enregistrement. "
-                                + "\n2. Modifier l’espace. "
-                                + "\n3. Supprimer l’espace. \n4. Voir les réservations. "
-                                + "\n5. Congé ");
-                        option = scanner.nextInt();
-                        switch (option) {
-                            //Registrar
-                            case 1:
-                                break;
-                            //Modificar
-                            case 2:
-                                break;
-                            //Eliminar
-                            case 3:
-                                break;
-                            //Ver reservas
-                            case 4:
-                                break;
-                            //Salida
-                            case 5:
-                                break;
-                            default:
-                                break;
+                        if (reservationSystem.verifyPassword(adminList)) {
+                            System.out.println("----- ADMINISTRATEUR -----");
+                            System.out.println("1. Espace d’enregistrement. "
+                                    + "\n2. Modifier l’espace. "
+                                    + "\n3. Supprimer l’espace. \n4. Voir les réservations. "
+                                    + "\n5. Voir les sites sportifs."
+                                    + "\n6. Congé ");
+                            option = scanner.nextInt();
+                            scanner.nextLine();
+                            switch (option) {
+                                //Registrar
+                                case 1:
+                                    administrator.registerSpaces();
+                                    break;
+                                //Modificar
+                                case 2:
+                                    administrator.modifySpaces();
+                                    break;
+                                //Eliminar
+                                case 3:
+                                    administrator.deleteSpaces();
+                                    break;
+                                //Ver reservas
+                                case 4:
+                                    administrator.seeListReservation();
+                                    break;
+                                //Ver espacios deportivos
+                                case 5:
+                                    administrator.seeSportSpaces();
+                                    break;
+                                default:
+                                    break;
+                            }
                         }
                         break;
                     case 3:
@@ -247,12 +216,15 @@ public class Main {
                                 break;
                             //Eliminar reserva
                             case 2:
+                                user.deleteReservation();
                                 break;
                             //Ver historial
                             case 3:
+                                user.viewHistory();
                                 break;
                             //Ver espacios disponibles
                             case 4:
+                                user.seeAvailableList();
                                 break;
                             //Salida
                             case 5:
@@ -262,30 +234,39 @@ public class Main {
                         }
                         break;
                     case 2:
-                        System.out.println("----- ADMINISTRADOR -----");
-                        System.out.println("1. Registre o espaço. "
-                                + "\n2. Modifique o espaço. "
-                                + "\n3. Exclua o espaço. \n4. Consulte as reservas. "
-                                + "\n5. Sair");
-                        option = scanner.nextInt();
-                        switch (option) {
-                            //Registrar
-                            case 1:
-                                break;
-                            //Modificar
-                            case 2:
-                                break;
-                            //Eliminar
-                            case 3:
-                                break;
-                            //Ver reservas
-                            case 4:
-                                break;
-                            //Salida
-                            case 5:
-                                break;
-                            default:
-                                break;
+                        if (reservationSystem.verifyPassword(adminList)) {
+                            System.out.println("----- ADMINISTRADOR -----");
+                            System.out.println("1. Registre o espaço. "
+                                    + "\n2. Modifique o espaço. "
+                                    + "\n3. Exclua o espaço. \n4. Consulte as reservas."
+                                    + "\n5. Ver instalações esportivas. "
+                                    + "\n6. Sair");
+                            option = scanner.nextInt();
+                            scanner.nextLine();
+                            switch (option) {
+                                //Registrar
+                                case 1:
+                                    administrator.registerSpaces();
+                                    break;
+                                //Modificar
+                                case 2:
+                                    administrator.modifySpaces();
+                                    break;
+                                //Eliminar
+                                case 3:
+                                    administrator.deleteSpaces();
+                                    break;
+                                //Ver reservas
+                                case 4:
+                                    administrator.seeListReservation();
+                                    break;
+                                //Ver espacios deportivos
+                                case 5:
+                                    administrator.seeSportSpaces();
+                                    break;
+                                default:
+                                    break;
+                            }
                         }
                         break;
                     case 3:

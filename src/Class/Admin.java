@@ -158,6 +158,21 @@ public class Admin extends Person {
             e.printStackTrace();
         }
     }
+    
+    public void seeSportSpaces(){
+        try(BufferedReader reader = new BufferedReader(new FileReader ("Calendario reservas.txt"))){
+            String line;
+            
+            System.out.println("----- CALENDARIO DE RESERVAS -----");
+            while((line = reader.readLine()) != null){
+                System.out.println(line);
+            }
+            
+        }catch(IOException e){
+            System.out.println("Error al leer el archivo");
+            e.printStackTrace();
+        }
+    }
 
     @Override
     public void chooseLanguage() {
