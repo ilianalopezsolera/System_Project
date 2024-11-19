@@ -7,6 +7,8 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.*;
+import java.util.ResourceBundle;
+import java.util.Locale;
 
 public class Admin extends Person {
 
@@ -47,33 +49,33 @@ public class Admin extends Person {
         return administrators;
     }
 
-    public void registerSpaces() {
+    public void registerSpaces(String language) {
         int numberSpaces;
+        ResourceBundle messages = ResourceBundle.getBundle("messages", new Locale(language));
 
-        try(BufferedWriter writer = new BufferedWriter
-        (new FileWriter("Calendario reservas.txt", true))) {
-            
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter("Calendario reservas.txt", true))) {
+
             Scanner scanner = new Scanner(System.in);
 
-            System.out.println("Registrar espacio");
-            System.out.print("Digite la cantidad de espacios a registrar: ");
+            System.out.println(messages.getString("numRegisterSpaces"));
             numberSpaces = scanner.nextInt();
             scanner.nextLine();
 
             for (int i = 0; i < numberSpaces; i++) {
-                System.out.println("Registro " + (i + 1) + ":");
-                System.out.print("Nombre del espacio deportivo: ");
+                System.out.print(messages.getString("register") + (i+1) + ":");
+
+                System.out.println(messages.getString("spaceNamePrompt"));
                 String name = scanner.nextLine();
 
-                System.out.print("Tipo: ");
+                System.out.println(messages.getString("typeSpace"));
                 String type = scanner.next();
                 scanner.nextLine();
 
-                System.out.print("Fecha: ");
+                System.out.println(messages.getString("datePromp"));
                 String date = scanner.next();
                 scanner.nextLine();
 
-                System.out.print("Hora: ");
+                System.out.println(messages.getString("timePrompt"));
                 String time = scanner.next();
                 scanner.nextLine();
 
@@ -81,9 +83,9 @@ public class Admin extends Person {
                         + true + ", fecha: " + date + ", hora: " + time);
                 writer.newLine();
             }
-            System.out.println("Datos guardados en calendario de reservas");
+            System.out.println(messages.getString("safeData"));
         } catch (IOException e) {
-            System.out.println("Ocurrió un error al escribir el fichero.");
+            System.out.println(messages.getString("erroWriterFile"));
             e.printStackTrace();
         }
     }
@@ -91,92 +93,119 @@ public class Admin extends Person {
     public void modifySpaces() {
     }
 
-    public void deleteSpaces() {
+    public void deleteSpaces(String language) {
+        int numberSpaces = 0;
         Scanner scanner = new Scanner(System.in);
 
-        System.out.println("Digite los datos del espacio a eliminar");
-        System.out.print("Nombre: ");
-        String nameSpace = scanner.nextLine();
-
-        System.out.print("Fecha: ");
-        String date = scanner.next();
-        scanner.nextLine();
-
-        System.out.print("Hora: ");
-        String time = scanner.next();
-        scanner.nextLine();
+        ResourceBundle messages = ResourceBundle.getBundle("messages", new Locale(language));
 
         File inputFile = new File("Calendario reservas.txt");
         File tempFile = new File("tempFile.txt");
 
-        try (BufferedReader br = new BufferedReader(new FileReader(inputFile));
-            BufferedWriter bw = new BufferedWriter(new FileWriter(tempFile))) {
+        System.out.println(messages.getString("numDeleteSpaces"));
+        numberSpaces = scanner.nextInt();
+        scanner.nextLine();
+
+        for (int i = 0; i < numberSpaces; i++) {
+            System.out.print(messages.getString("deleteSpace") + (i+1));
+            System.out.println(messages.getString("dataSpaceDelete"));
+            System.out.println(messages.getString("namePrompt"));
+            String nameSpace = scanner.nextLine();
+
+            System.out.println(messages.getString("datePrompt"));
+            String date = scanner.next();
+            scanner.nextLine();
+
+            System.out.println(messages.getString("timePrompt"));
+            String time = scanner.next();
+            scanner.nextLine();
+            try (BufferedReader br = new BufferedReader(new FileReader(inputFile)); BufferedWriter bw = new BufferedWriter(new FileWriter(tempFile))) {
+
+                String line;
+
+                while ((line = br.readLine()) != null) {
+                    // Si la línea contiene todas las palabras dadas, no la 
+                    //escribimos en el archivo temporal
+                    if (line.contains(nameSpace) && line.contains(date)
+                            && line.contains(time)) {
+                        continue; // Salta la línea
+                    }
+                    // Escribimos la línea en el archivo temporal
+                    bw.write(line);
+                    bw.newLine();
+                }
+
+            } catch (IOException e) {
+                System.out.println(messages.getString("errorProcessFile"));
+                e.printStackTrace();
+            }
+
+            // Reemplazar el archivo original con el archivo temporal
+            if (inputFile.delete()) {
+                if (!tempFile.renameTo(inputFile)) {
+                    System.out.println(messages.getString("errorREnamingTempFile"));
+                } else {
+                    System.out.println(messages.getString("correctSpaceDelete"));
+                }
+            } else {
+                System.out.println(messages.getString("errorDeleteInputFile"));
+            }
+        }
+    }
+
+    public void seeListReservation(String language) {
+        ResourceBundle messages = ResourceBundle.getBundle("messages", new Locale(language));
+        try {
+            FileReader reader = new FileReader("Historial sistema de reservas.txt");
+            BufferedReader br = new BufferedReader(reader);
 
             String line;
 
             while ((line = br.readLine()) != null) {
-                // Si la línea contiene todas las palabras dadas, no la 
-                //escribimos en el archivo temporal
-                if (line.contains(nameSpace) && line.contains(date)
-                        && line.contains(time)) {
-                    continue; // Salta la línea
-                }
-                // Escribimos la línea en el archivo temporal
-                bw.write(line);
-                bw.newLine();
-            }
-
-        } catch (IOException e) {
-            System.out.println("Ocurrió un error al procesar el archivo.");
-            e.printStackTrace();
-        }
-
-        // Reemplazar el archivo original con el archivo temporal
-        if (inputFile.delete()) {
-            if (!tempFile.renameTo(inputFile)) {
-                System.out.println("Error al renombrar el archivo temporal.");
-            } else {
-                System.out.println("Espacio eliminado correctamente.");
-            }
-        } else {
-            System.out.println("Error al eliminar el archivo original.");
-        }
-    }
-
-    public void seeListReservation() {
-        try {
-            FileReader reader = new FileReader ("Historial sistema de reservas.txt");
-            BufferedReader br = new BufferedReader(reader);
-            
-            String line;
-            
-            while((line = br.readLine()) != null){
                 System.out.println(line);
             }
         } catch (IOException e) {
-            System.out.println("Error al leer el archivo.");
+            System.out.println(messages.getString("errorReaderFile"));
             e.printStackTrace();
         }
     }
-    
-    public void seeSportSpaces(){
-        try(BufferedReader reader = new BufferedReader(new FileReader ("Calendario reservas.txt"))){
+
+    public void seeSportSpaces(String language) {
+        ResourceBundle messages = ResourceBundle.getBundle("messages", new Locale(language));
+        
+        try (BufferedReader reader = new BufferedReader(new FileReader("Calendario reservas.txt"))) {
             String line;
-            
-            System.out.println("----- CALENDARIO DE RESERVAS -----");
-            while((line = reader.readLine()) != null){
+
+            System.out.println(messages.getString("calendarReservations"));
+            while ((line = reader.readLine()) != null) {
                 System.out.println(line);
             }
-            
-        }catch(IOException e){
-            System.out.println("Error al leer el archivo");
+
+        } catch (IOException e) {
+            System.out.println(messages.getString("errorReaderFile"));
             e.printStackTrace();
         }
     }
 
     @Override
-    public void chooseLanguage() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public String chooseLanguage() {
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Seleccione un idioma / Select a language / Sélectionnez une langue:");
+        System.out.println("1. Español \n2. Français \n3. Italiano");
+        int languageOption = scanner.nextInt();
+        scanner.nextLine();
+        
+        String language = switch (languageOption) {
+            case 1 ->
+                "es"; // Español
+            case 2 ->
+                "fr"; // Francés
+            case 3 ->
+                "it"; // Italiano
+            default ->
+                "es"; // Por defecto, español
+        };
+        return language;
     }
 
     @Override

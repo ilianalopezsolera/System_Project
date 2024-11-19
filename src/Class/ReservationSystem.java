@@ -43,36 +43,27 @@ public class ReservationSystem {
         this.reservation = reservation;
     }
 
-    public boolean verifyPassword(Admin[] adminList) {
+    public boolean verifyPassword(Admin[] adminList, String language) {
         String password;
         int attempts = 3;
         Scanner scanner = new Scanner(System.in);
+        ResourceBundle messages = ResourceBundle.getBundle("messages", new Locale(language));
         do {
-            System.out.println("Intento " + attempts);
-            System.out.print("Digite su contraseña: ");
+            System.out.println(messages.getString("intent")+ attempts);
+            System.out.print(messages.getString("enterPassword"));
             password = scanner.next();
             scanner.nextLine();
 
             for (int i = 0; i < adminList.length; i++) {
                 if (adminList[i].getCarnet().equalsIgnoreCase(password)) {
-                    System.out.println("Bienvenido " + adminList[i].getName());
+                    System.out.println(messages.getString("welcome") + adminList[i].getName());
                     return true;
                 }
             }
-            System.out.println("Contraseña no valida");
+            System.out.println(messages.getString("invalidPassword"));
             attempts--;
         } while (attempts > 0);
         return false;
-    }
-
-    public void manageReservations() {
-    }
-
-    public Reservation getHistory() {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
-
-    public void sendNotification() {
     }
 
     @Override

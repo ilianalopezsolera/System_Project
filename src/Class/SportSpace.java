@@ -8,6 +8,8 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.Date;
+import java.util.ResourceBundle;
+import java.util.Locale;
 
 /**
  *
@@ -75,35 +77,6 @@ public class SportSpace {
     public void setTime(String time) {
         this.time = time;
     }
-    
-    public SportSpace[] fillSporSpaces(){
-                SportSpace[] sportSpaces = new SportSpace[156]; // Arreglo con el tamaño necesario
-        int index = 0;
-
-        try (BufferedReader reader = new BufferedReader
-        (new FileReader("Calendario reservas.txt"))) {
-            String line;
-
-            while ((line = reader.readLine()) != null && index < sportSpaces.length) {
-                String[] parts = line.split(", ");
-
-                // Extraer y procesar los datos
-                String name = parts[0].split(": ")[1];
-                String type = parts[1].split(": ")[1];
-                boolean availability = Boolean.parseBoolean(parts[2].split(": ")[1]);
-                String date = parts[3].split(": ")[1];
-                String time = parts[4].split(": ")[1];
-
-                // Crear el objeto SportSpace y agregarlo al arreglo
-                sportSpaces[index++] = new SportSpace(name, type, availability, date, time);
-            }
-
-        } catch (IOException e) {
-            System.out.println("Error al leer el archivo.");
-            e.printStackTrace();
-        }
-        return sportSpaces;
-    }
 
     public void showAvailability(SportSpace[] sportSpaces) {
         for (int i = 0; i < sportSpaces.length; i++) {
@@ -113,33 +86,32 @@ public class SportSpace {
         }
     }
 
-  public boolean seeAvailability(String spaceName) {
-    boolean found = false;  // Variable para registrar si encuentra espacios disponibles
-    System.out.println("ESPACIOS DISPONIBLES");
-    
-    try(BufferedReader reader = new BufferedReader
-        (new FileReader("Calendario reservas.txt"))){
-   
-        String line;
-        
-        while((line = reader.readLine()) != null){
-            if (line.contains(spaceName) && line.contains("true")) {
-                System.out.println(line);
-                found = true;
-            }
-        }
-    }catch(IOException e){
-        System.out.println("Error al leer el archivo.");
-        e.printStackTrace();
-    }
-    
-    return found;
-}
+    public boolean seeAvailability(String spaceName, String language) {
+        boolean found = false;  // Variable para registrar si encuentra espacios disponibles
+        ResourceBundle messages = ResourceBundle.getBundle("messages", new Locale(language));
+        System.out.println(messages.getString("availabilitySpaces"));
 
+        try (BufferedReader reader = new BufferedReader(new FileReader("Calendario reservas.txt"))) {
+
+            String line;
+
+            while ((line = reader.readLine()) != null) {
+                if (line.contains(spaceName) && line.contains("true")) {
+                    System.out.println(line);
+                    found = true;
+                }
+            }
+        } catch (IOException e) {
+            System.out.println(messages.getString("errorReaderFile"));
+            e.printStackTrace();
+        }
+
+        return found;
+    }
 
     @Override
     public String toString() {
-        return "sport space name: " + name + ", type: " + type + ", availability: " 
+        return "sport space name: " + name + ", type: " + type + ", availability: "
                 + availability + ", date: " + date + ", time: " + time;
     }
 

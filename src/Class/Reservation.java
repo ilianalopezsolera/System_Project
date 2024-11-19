@@ -10,6 +10,8 @@ import java.util.*;
 import java.util.Properties;
 import javax.mail.*;
 import javax.mail.internet.*;
+import java.util.ResourceBundle;
+import java.util.Locale;
 
 public class Reservation {
 
@@ -75,9 +77,10 @@ public class Reservation {
         this.user = user;
     }
 
-    public boolean createReservation(SportSpace sportSpace) {
+    public boolean createReservation(SportSpace sportSpace, String language) {
         Scanner scanner = new Scanner(System.in);
         boolean confirmationReservation = false;
+        ResourceBundle messages = ResourceBundle.getBundle("messages", new Locale(language));
         
         String spaceName = "";
         String name = "";
@@ -91,46 +94,45 @@ public class Reservation {
         File inputFile = new File("Calendario reservas.txt");
         File tempFile = new File("tempFile.txt");
 
-        System.out.print("Nombre del espacio deportivo: ");
+        System.out.print(messages.getString("spaceNamePrompt"));
         spaceName = scanner.nextLine();
 
-        if (sportSpace.seeAvailability(spaceName)) {
+        if (sportSpace.seeAvailability(spaceName, language)) {
             System.out.println();
-            System.out.println("----- RESERVA COMO -----");
-            System.out.println("1. Estudiante. \n2. Personal.");
+            System.out.println(messages.getString("reserveAs"));
             int option = scanner.nextInt();
             scanner.nextLine();
 
             switch (option) {
                 case 1:
-                    System.out.print("Nombre: ");
+                    System.out.print(messages.getString("namePrompt"));
                     name = scanner.nextLine();
 
-                    System.out.print("Carnet: ");
+                    System.out.print(messages.getString("carnetPrompt"));
                     identifier = scanner.next();
                     scanner.nextLine();
 
-                    System.out.print("Numero de telefono: ");
+                    System.out.print(messages.getString("phonePrompt"));
                     number = scanner.nextLong();
                     scanner.nextLine();
 
-                    System.out.print("Direccion de correo: ");
+                    System.out.print(messages.getString("emailPrompt"));
                     mail = scanner.next();
                     scanner.nextLine();
                     break;
                 case 2:
-                    System.out.print("Nombre: ");
+                    System.out.print(messages.getString("namePrompt"));
                     name = scanner.nextLine();
 
-                    System.out.print("Identificacion: ");
+                    System.out.print(messages.getString("idPrompt"));
                     identifier = scanner.next();
                     scanner.nextLine();
 
-                    System.out.print("Numero de telefono: ");
+                    System.out.print(messages.getString("phonePrompt"));
                     number = scanner.nextLong();
                     scanner.nextLine();
 
-                    System.out.print("Direccion de correo: ");
+                    System.out.print(messages.getString("emailPrompt"));
                     mail = scanner.next();
                     scanner.nextLine();
                     break;
@@ -142,13 +144,13 @@ public class Reservation {
             User user = new User(name, identifier, contact);
 
             do {
-                System.out.println("Escoja una fecha y hora");
+                System.out.println(messages.getString("chooseDateTime"));
 
-                System.out.print("Fecha: ");
+                System.out.print(messages.getString("datePrompt"));
                 dateReservation = scanner.next();
                 scanner.nextLine();
 
-                System.out.print("Hora: ");
+                System.out.print(messages.getString("timePrompt"));
                 timeReservation = scanner.next();
                 scanner.nextLine();
 
@@ -159,7 +161,7 @@ public class Reservation {
                     writer.write(newReservation.toString());
                     writer.newLine();
                 } catch (IOException e) {
-                    System.out.println("Error al registrar la reserva.");
+                    System.out.println(messages.getString("errorRegistering"));
                     e.printStackTrace();
                 }
 
@@ -176,24 +178,24 @@ public class Reservation {
                         bw.newLine();
                     }
                 } catch (IOException e) {
-                    System.out.println("Error al procesar el archivo");
+                    System.out.println(messages.getString("errorProcessFile"));
                     e.printStackTrace();
                 }
 
                 // Reemplazar el archivo original con el archivo temporal
                 if (inputFile.delete()) {
                     if (!tempFile.renameTo(inputFile)) {
-                        System.out.println("Error al renombrar el archivo temporal.");
+                        System.out.println(messages.getString("errorREnamingTempFil"));
                     } else {
-                        System.out.println("Espacio reservado correctamente.");
+                        System.out.println(messages.getString("reservationSuccessful"));
                         newReservation.sendConfirmation();
                     }
                 } else {
-                    System.out.println("Error al eliminar el archivo original.");
+                    System.out.println(messages.getString("errorDeleteInputFile"));
                 }
 
                 System.out.println();
-                System.out.println("1. Realizar otra reserva. \n2. Salir.");
+                System.out.println(messages.getString("anotherReservation"));
                 option = scanner.nextInt();
 
             } while (option == 1);

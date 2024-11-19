@@ -7,6 +7,8 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Scanner;
+import java.util.ResourceBundle;
+import java.util.Locale;
 
 public class User extends Person {
 
@@ -21,10 +23,11 @@ public class User extends Person {
         super(name, carnet, contact);
     }
 
-    public void seeAvailableList() {
+    public void seeAvailableList(String language) {
         Scanner scanner = new Scanner(System.in);
+        ResourceBundle messages = ResourceBundle.getBundle("messages", new Locale(language));
 
-        System.out.println("1. Ver toda la lista. \n2. Ver espacio especifico.");
+        System.out.println(messages.getString("seeListSpaces"));
         int option = scanner.nextInt();
         scanner.nextLine();
 
@@ -39,12 +42,12 @@ public class User extends Person {
                         System.out.println(line);
                     }
                 } catch (IOException e) {
-                    System.out.println("Error al leer el archivo.");
+                    System.out.println(messages.getString("errorReaderFile"));
                     e.printStackTrace();
                 }
                 break;
             case 2:
-                System.out.print("Nombre del espacio deportivo: ");
+                System.out.print(messages.getString("spaceNamePrompt"));
                 String nameSpace = scanner.nextLine();
 
                 try(BufferedReader reader = new BufferedReader
@@ -58,7 +61,7 @@ public class User extends Person {
                         }
                     }
                 } catch (IOException e) {
-                    System.out.println("Error al leer el archivo.");
+                    System.out.println(messages.getString("errorReaderFile"));
                     e.printStackTrace();
                 }
                 break;
@@ -67,23 +70,24 @@ public class User extends Person {
         }
     }
 
-    public void viewHistory() {
+    public void viewHistory(String language) {
+        ResourceBundle messages = ResourceBundle.getBundle("messages", new Locale(language));
         Scanner scanner = new Scanner(System.in);
         boolean found = false;  // Para verificar si encontramos alguna reserv
         String identifier = "";
         
-        System.out.println("1. Estudiante. \n2. Personal.");
+        System.out.println(messages.getString("reserveAs"));
         int option = scanner.nextInt();
         scanner.nextLine();
         
         switch(option){
             case 1:
-                System.out.print("Digite su carnet: ");
+                System.out.print(messages.getString("carnetPrompt"));
                 identifier = scanner.next();
                 scanner.nextLine();
                 break;
             case 2:
-                System.out.print("Digite su cedula: ");
+                System.out.print(messages.getString("idPrompt"));
                 identifier = scanner.next();
                 scanner.nextLine();
                 break;
@@ -103,42 +107,46 @@ public class User extends Person {
                 }
             }
         } catch (IOException e) {
-            System.out.println("Error al leer el archivo.");
+            System.out.println(messages.getString("errorReaderFile"));
             e.printStackTrace();
         }
         if (!found) {
-            System.out.println("No se encontraron reservas para el carnet: " + identifier);
+            System.out.println(messages.getString("noReservationsFound"));
         }
     }
 
-    public void deleteReservation() {
+    public void deleteReservation(String language) {
         Scanner scanner = new Scanner(System.in);
+        String carnet;
+        String date;
+        String IDPerson;
+        String time;
+        String nameSpace;
+        File inputFile = new File("Historial sistema de reservas.txt");
+                File tempFile = new File("tempFile.txt");
+        ResourceBundle messages = ResourceBundle.getBundle("messages", new Locale(language));
 
-        System.out.println("1. Usuario estudiante. \n2. Usuario personal. "
-                + "\n3. salir.");
+        System.out.println(messages.getString("reserveAs"));
         int option = scanner.nextInt();
         scanner.nextLine();
 
         switch (option) {
             case 1:
-                System.out.println("Digite los datos");
-                System.out.print("Carnet: ");
-                String carnet = scanner.next();
+                System.out.println(messages.getString("enterData"));
+                System.out.print(messages.getString("carnetPrompt"));
+                carnet = scanner.next();
                 scanner.nextLine();
 
-                System.out.print("Nombre del espacio deportivo: ");
-                String nameSpace = scanner.nextLine();
+                System.out.print(messages.getString("spaceNamePrompt"));
+                nameSpace = scanner.nextLine();
 
-                System.out.print("Fecha: ");
-                String date = scanner.next();
+                System.out.print(messages.getString("datePrompt"));
+                date = scanner.next();
                 scanner.nextLine();
 
-                System.out.print("Hora: ");
-                String time = scanner.next();
+                System.out.print(messages.getString("timePrompt"));
+                time = scanner.next();
                 scanner.nextLine();
-                
-                File inputFile = new File("Historial sistema de reservas.txt");
-                File tempFile = new File("tempFile.txt");
 
                 try (BufferedReader br = new BufferedReader(new FileReader(inputFile));
                     BufferedWriter bw = new BufferedWriter(new FileWriter(tempFile))) {
@@ -158,7 +166,7 @@ public class User extends Person {
                     }
 
                 } catch (IOException e) {
-                    System.out.println("Error al procesar el archivo.");
+                    System.out.println(messages.getString("errorProcessFile"));
                     e.printStackTrace();
                     return;
                 }
@@ -166,24 +174,91 @@ public class User extends Person {
                 // Reemplazar el archivo original con el archivo temporal
                 if (inputFile.delete()) {
                     if (!tempFile.renameTo(inputFile)) {
-                        System.out.println("Error al renombrar el archivo temporal.");
+                        System.out.println(messages.getString("errorRenamingTempFile"));
                     } else {
-                        System.out.println("Reserva eliminada correctamente.");
+                        System.out.println(messages.getString("correctReservationDelete"));
                     }
                 } else {
-                    System.out.println("Error al eliminar el archivo original.");
+                    System.out.println(messages.getString("errorDeleteInputFile"));
                 }
                 break;
             case 2:
+                System.out.println(messages.getString("enterData"));
+                System.out.print(messages.getString("carnetPrompt"));
+                IDPerson = scanner.next();
+                scanner.nextLine();
+
+                System.out.print(messages.getString("spaceNamePrompt"));
+                nameSpace = scanner.nextLine();
+
+                System.out.print(messages.getString("datePrompt"));
+                date = scanner.next();
+                scanner.nextLine();
+
+                System.out.print(messages.getString("timePrompt"));
+                time = scanner.next();
+                scanner.nextLine();
+
+                try (BufferedReader br = new BufferedReader(new FileReader(inputFile));
+                    BufferedWriter bw = new BufferedWriter(new FileWriter(tempFile))) {
+
+                    String line;
+
+                    while ((line = br.readLine()) != null) {
+                        // Si la línea contiene todas las palabras dadas, no la 
+                        //escribimos en el archivo temporal
+                        if (line.contains(IDPerson) && line.contains(nameSpace)
+                                && line.contains(date) && line.contains(time)) {
+                            continue; // Salta la línea
+                        }
+                        // Escribimos la línea en el archivo temporal
+                        bw.write(line);
+                        bw.newLine();
+                    }
+
+                } catch (IOException e) {
+                    System.out.println(messages.getString("errorProcessFile"));
+                    e.printStackTrace();
+                    return;
+                }
+
+                // Reemplazar el archivo original con el archivo temporal
+                if (inputFile.delete()) {
+                    if (!tempFile.renameTo(inputFile)) {
+                        System.out.println(messages.getString("errorRenamingTempFile"));
+                    } else {
+                        System.out.println(messages.getString("correctReservationDelete"));
+                    }
+                } else {
+                    System.out.println(messages.getString("errorDeleteInputFile"));
+                }
                 break;
             case 3:
                 break;
             default:
+                
                 break;
         }
     }
 
     @Override
-    public void chooseLanguage() {
+    public String chooseLanguage() {
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Seleccione un idioma / Select a language / Sélectionnez une langue:");
+        System.out.println("1. Español \n2. Français \n3. Italiano");
+        int languageOption = scanner.nextInt();
+        scanner.nextLine();
+        
+        String language = switch (languageOption) {
+            case 1 ->
+                "es"; // Español
+            case 2 ->
+                "fr"; // Francés
+            case 3 ->
+                "it"; // Italiano
+            default ->
+                "es"; // Por defecto, español
+        };
+        return language;
     }
 }

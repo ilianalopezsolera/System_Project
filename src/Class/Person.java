@@ -59,6 +59,9 @@ public abstract class Person implements Language {
     }
 
     @Override
+    public abstract String chooseLanguage();
+
+    @Override
     public String toString() {
         return "name: " + name + ", identifier: " + IDPerson + ", contact " + contact;
     }

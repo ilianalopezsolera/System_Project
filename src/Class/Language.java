@@ -2,5 +2,5 @@ package Class;
 
 public interface Language {
 
-    public void chooseLanguage();
+    public String chooseLanguage();
 }
