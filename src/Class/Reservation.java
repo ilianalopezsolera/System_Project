@@ -75,9 +75,10 @@ public class Reservation {
         this.user = user;
     }
 
-    public void createReservation(SportSpace sportSpace) {
+    public boolean createReservation(SportSpace sportSpace) {
         Scanner scanner = new Scanner(System.in);
-
+        boolean confirmationReservation = false;
+        
         String spaceName = "";
         String name = "";
         String identifier = "";
@@ -169,6 +170,7 @@ public class Reservation {
                     while ((line = br.readLine()) != null) {
                         if (line.contains(spaceName) && line.contains(dateReservation) && line.contains(timeReservation)) {
                             line = line.replace("true", "false");
+                            confirmationReservation = true;
                         }
                         bw.write(line);
                         bw.newLine();
@@ -196,6 +198,7 @@ public class Reservation {
 
             } while (option == 1);
         }
+        return confirmationReservation;
     }
 
     public void sendConfirmation() {
@@ -235,6 +238,7 @@ public class Reservation {
         }
     }
 
+    
     @Override
     public String toString() {
         return "Reservation " + "date: " + date + ", time: " + time

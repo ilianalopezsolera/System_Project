@@ -3,3 +3,4 @@ Reservation date: 07/12/24, time: 16:00, sport space: Cancha de futbol, confirma
 Reservation date: 06/12/24, time: 20:00, sport space: Cancha de futbol, confirmation: true, user name: Meylin Lopez, identifier: 604720411, contact mail: meylin.lopez@ucr.ac.cr, phone: 63158845
 Reservation date: 04/12/24, time: 20:00, sport space: Cancha de futbol, confirmation: true, user name: Meylin Lopez, identifier: 604720411, contact mail: meylin.lopez@ucr.ac.cr, phone: 63158845
 Reservation date: 04/12/24, time: 16:00, sport space: Gimnasio, confirmation: true, user name: Meylin Lopez, identifier: C4G662, contact mail: meylin.lopez@ucr.ac.cr, phone: 63158845
+Reservation date: 28/11/24, time: 16:00, sport space: Gimnasio, confirmation: true, user name: Meylin Lopez, identifier: C4G662, contact mail: meylin.lopez@ucr.ac.cr, phone: 63158845

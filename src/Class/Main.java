@@ -22,9 +22,12 @@ public class Main {
         Reservation reservation = new Reservation();
         SportSpace sportSpace = new SportSpace();
         User user = new User();
+        RedSocial socialNetwork = new RedSocial();
 
         int option = 0;
         Scanner scanner = new Scanner(System.in);
+        
+        socialNetwork.shareLink();
 
         System.out.println("----- SISTEMA DE ESPACIOS DEPORTIVOS -----");
         System.out.println("LENGUAJE");
@@ -52,6 +55,9 @@ public class Main {
                             //Reservar
                             case 1:
                                 reservation.createReservation(sportSpace);
+                                if (reservation.createReservation(sportSpace)) {
+                                    socialNetwork.shareLink();
+                                }
                                 break;
                             //Eliminar reserva
                             case 2:
@@ -134,6 +140,9 @@ public class Main {
                             //Reservar
                             case 1:
                                 reservation.createReservation(sportSpace);
+                                if (reservation.createReservation(sportSpace)) {
+                                    socialNetwork.shareLink();
+                                }
                                 break;
                             //Eliminar reserva
                             case 2:
@@ -213,6 +222,9 @@ public class Main {
                             //Reservar
                             case 1:
                                 reservation.createReservation(sportSpace);
+                                if (reservation.createReservation(sportSpace)) {
+                                    socialNetwork.shareLink();
+                                }
                                 break;
                             //Eliminar reserva
                             case 2:

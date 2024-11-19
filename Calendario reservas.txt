@@ -44,7 +44,7 @@ Nombre: Cancha de baloncesto, tipo: deportivo, disponibilidad: false, fecha: 28/
 Nombre: Cancha de baloncesto, tipo: deportivo, disponibilidad: false, fecha: 28/11/24, hora: 20:00
 Nombre: Gimnasio, tipo: deportivo, disponibilidad: false, fecha: 28/11/24, hora: 08:00
 Nombre: Gimnasio, tipo: deportivo, disponibilidad: false, fecha: 28/11/24, hora: 12:00
-Nombre: Gimnasio, tipo: deportivo, disponibilidad: true, fecha: 28/11/24, hora: 16:00
+Nombre: Gimnasio, tipo: deportivo, disponibilidad: false, fecha: 28/11/24, hora: 16:00
 Nombre: Gimnasio, tipo: deportivo, disponibilidad: true, fecha: 28/11/24, hora: 20:00
 Nombre: Cancha de futbol, tipo: deportivo, disponibilidad: false, fecha: 29/11/24, hora: 08:00
 Nombre: Cancha de futbol, tipo: deportivo, disponibilidad: false, fecha: 29/11/24, hora: 12:00
