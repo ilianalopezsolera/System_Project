@@ -52,13 +52,13 @@ public class Admin extends Person {
         Contact contact4 = new Contact("dilan.gonzales@ucr.ac.cr", 70746222);
 
         administrators[0] = new Admin("UCR01", "Meylin Lopez", "604720411",
-                "hgsfr45", contact1);
+                "meii", contact1);
         administrators[1] = new Admin("UCR02", "Reychell Acuña", "604450667",
-                "ujmki87", contact2);
+                "123", contact2);
         administrators[2] = new Admin("UCR03", "Carlos Rodriguez", "600170789",
                 "qwert56", contact3);
         administrators[3] = new Admin("UCR04", "Dilan Gonzales", "609870567",
-                "yuiop90", contact4);
+                "321", contact4);
         return administrators;
     }
 

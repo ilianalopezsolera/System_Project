@@ -85,26 +85,6 @@ public class SportSpace {
     }
 
     /**
-     * Displays the available sport spaces from the provided list of sport spaces.
-     * This method checks the availability status of each space and prints the 
-     * details of those that are available.
-     * 
-     * <p>The method iterates through the array of `SportSpace` objects, 
-     * and for each space with an availability status set to true, it prints the
-     * information of that space to the console.</p>
-     * 
-     * @param sportSpaces An array of `SportSpace` objects representing the 
-     * available sport spaces to be checked. 
-     */
-    public void showAvailability(SportSpace[] sportSpaces) {
-        for (int i = 0; i < sportSpaces.length; i++) {
-            if (sportSpaces[i].availability = true) {  // Verifica si el espacio está disponible
-                System.out.println(sportSpaces[i]);
-            }
-        }
-    }
-
-    /**
      * Checks the availability of a specific sport space by its name and displays
      * the available reservation details.
      * 

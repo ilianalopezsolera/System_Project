@@ -105,7 +105,7 @@ Nombre: Cancha de baloncesto, tipo: deportivo, disponibilidad: true, fecha: 03/1
 Nombre: Gimnasio, tipo: deportivo, disponibilidad: false, fecha: 03/12/24, hora: 08:00
 Nombre: Gimnasio, tipo: deportivo, disponibilidad: false, fecha: 03/12/24, hora: 12:00
 Nombre: Gimnasio, tipo: deportivo, disponibilidad: true, fecha: 03/12/24, hora: 16:00
-Nombre: Gimnasio, tipo: deportivo, disponibilidad: true, fecha: 03/12/24, hora: 20:00
+Nombre: Gimnasio, tipo: deportivo, disponibilidad: false, fecha: 03/12/24, hora: 20:00
 Nombre: Cancha de futbol, tipo: deportivo, disponibilidad: true, fecha: 04/12/24, hora: 08:00
 Nombre: Cancha de futbol, tipo: deportivo, disponibilidad: true, fecha: 04/12/24, hora: 12:00
 Nombre: Cancha de futbol, tipo: deportivo, disponibilidad: true, fecha: 04/12/24, hora: 16:00
@@ -155,6 +155,6 @@ Nombre: Gimnasio, tipo: deportivo, disponibilidad: false, fecha: 07/12/24, hora:
 Nombre: Gimnasio, tipo: deportivo, disponibilidad: false, fecha: 07/12/24, hora: 16:00
 Nombre: Gimnasio, tipo: deportivo, disponibilidad: false, fecha: 07/12/24, hora: 20:00
 Nombre: Cancha de voleibol, tipo: deportivo, disponibilidad: true, fecha: 08/12/24, hora: 08:00
-Nombre: Cancha de voleibol, tipo: deportivo, disponibilidad: true, fecha: 08/12/24, hora: 12:00
-Nombre: Cancha de voleibol, tipo: deportivo, disponibilidad: false, fecha: 08/12/24, hora: 16:00
+Nombre: Cancha de voleibol, tipo: deportivo, disponibilidad: false, fecha: 08/12/24, hora: 12:00
+Nombre: Cancha de voleibol, tipo: deportivo, disponibilidad: true, fecha: 08/12/24, hora: 16:00
 Nombre: Cancha de voleibol, tipo: deportivo, disponibilidad: true, fecha: 08/12/24, hora: 20:00

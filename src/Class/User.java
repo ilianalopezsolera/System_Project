@@ -83,7 +83,7 @@ public class User extends Person {
                     String line;
 
                     while ((line = reader.readLine()) != null) {
-                        if (line.contains(nameSpace)) {
+                        if (line.equalsIgnoreCase(nameSpace)) {
                             System.out.println(line);
                         }
                     }

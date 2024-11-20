@@ -217,7 +217,7 @@ public class Reservation {
                         System.out.println(messages.getString("errorREnamingTempFil"));
                     } else {
                         System.out.println(messages.getString("reservationSuccessful"));
-                        newReservation.sendConfirmation();
+                        newReservation.sendConfirmation(mail);
                         socialNetwork.shareLink();
                     }
                 } else {
@@ -236,9 +236,10 @@ public class Reservation {
      * reservation made in the reservation system of sports venues.</p>
      *
      */
-    public void sendConfirmation() {
+    public void sendConfirmation(String email) {
         // Dirección de correo y credenciales
-        String to = "dilangonzalez2517@gmail.com"; // Cambia esto con el destinatario
+        //String to = "dilangonzalez2517@gmail.com"; // Cambia esto con el destinatario
+        String to = email;
         String from = "proyectoprogra29@gmail.com"; // Tu correo de Gmail
         String password = "rygo gjzq aeam gqpc"; // Tu contraseña de Gmail
 

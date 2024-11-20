@@ -16,13 +16,7 @@ import java.util.Scanner;
  */
 public class RedSocial {
 
-    private String token;
-
     public RedSocial() {
-    }
-
-    public RedSocial(String token) {
-        this.token = token;
     }
     
     /**
