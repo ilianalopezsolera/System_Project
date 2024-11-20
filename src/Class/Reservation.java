@@ -14,11 +14,11 @@ import java.util.ResourceBundle;
 import java.util.Locale;
 
 /**
- * Represents a reservation made for a sport space. This class stores the 
- * details of a reservation, including the date, time, space name, user 
- * information, and confirmation status. It also provides methods for creating 
+ * Represents a reservation made for a sport space. This class stores the
+ * details of a reservation, including the date, time, space name, user
+ * information, and confirmation status. It also provides methods for creating
  * reservations and sending booking confirmations.
- * 
+ *
  * @author Meylin Lopez
  * @author Carlos Rodriguez
  * @author Dilan Gonzales
@@ -90,21 +90,25 @@ public class Reservation {
 
     /**
      * Creates a reservation for a given sport space if it's available.
-     * 
-     * <p>This method allows a user to create a reservation for a sport space 
-     * by entering their details and selecting a date and time. The reservation 
-     * details are then saved to the history file and the space's availability 
+     *
+     * <p>
+     * This method allows a user to create a reservation for a sport space by
+     * entering their details and selecting a date and time. The reservation
+     * details are then saved to the history file and the space's availability
      * is updated in the calendar file.</p>
-     * 
+     *
      * @param sportSpace the sport space to reserve
-     * @param language the language used for interaction (e.g., "es" for Spanish)
+     * @param language the language used for interaction (e.g., "es" for
+     * Spanish)
      * @return true if the reservation was successful, false otherwise
      */
-    public boolean createReservation(SportSpace sportSpace, String language) {
+    public boolean createReservation(SportSpace sportSpace, String language,
+            RedSocial socialNetwork) {
         Scanner scanner = new Scanner(System.in);
+        int option = 1;
         boolean confirmationReservation = false;
         ResourceBundle messages = ResourceBundle.getBundle("messages", new Locale(language));
-        
+
         String spaceName = "";
         String name = "";
         String identifier = "";
@@ -117,57 +121,58 @@ public class Reservation {
         File inputFile = new File("Calendario reservas.txt");
         File tempFile = new File("tempFile.txt");
 
-        System.out.print(messages.getString("spaceNamePrompt"));
-        spaceName = scanner.nextLine();
+            System.out.print(messages.getString("spaceNamePrompt"));
+            spaceName = scanner.nextLine();
 
-        if (sportSpace.seeAvailability(spaceName, language)) {
-            System.out.println();
-            System.out.println(messages.getString("reserveAs"));
-            int option = scanner.nextInt();
-            scanner.nextLine();
+            if (sportSpace.seeAvailability(spaceName, language)) {
+                System.out.println();
+                System.out.println(messages.getString("reserveAs"));
+                option = scanner.nextInt();
+                scanner.nextLine();
 
-            switch (option) {
-                case 1:
-                    System.out.print(messages.getString("namePrompt"));
-                    name = scanner.nextLine();
+                switch (option) {
+                    case 1:
+                        System.out.println(messages.getString("personalData"));
+                        System.out.print(messages.getString("namePrompt"));
+                        name = scanner.nextLine();
 
-                    System.out.print(messages.getString("carnetPrompt"));
-                    identifier = scanner.next();
-                    scanner.nextLine();
+                        System.out.print(messages.getString("carnetPrompt"));
+                        identifier = scanner.next();
+                        scanner.nextLine();
 
-                    System.out.print(messages.getString("phonePrompt"));
-                    number = scanner.nextLong();
-                    scanner.nextLine();
+                        System.out.print(messages.getString("phonePrompt"));
+                        number = scanner.nextLong();
+                        scanner.nextLine();
 
-                    System.out.print(messages.getString("emailPrompt"));
-                    mail = scanner.next();
-                    scanner.nextLine();
-                    break;
-                case 2:
-                    System.out.print(messages.getString("namePrompt"));
-                    name = scanner.nextLine();
+                        System.out.print(messages.getString("emailPrompt"));
+                        mail = scanner.next();
+                        scanner.nextLine();
+                        break;
+                    case 2:
+                        System.out.print(messages.getString("namePrompt"));
+                        name = scanner.nextLine();
 
-                    System.out.print(messages.getString("idPrompt"));
-                    identifier = scanner.next();
-                    scanner.nextLine();
+                        System.out.print(messages.getString("idPrompt"));
+                        identifier = scanner.next();
+                        scanner.nextLine();
 
-                    System.out.print(messages.getString("phonePrompt"));
-                    number = scanner.nextLong();
-                    scanner.nextLine();
+                        System.out.print(messages.getString("phonePrompt"));
+                        number = scanner.nextLong();
+                        scanner.nextLine();
 
-                    System.out.print(messages.getString("emailPrompt"));
-                    mail = scanner.next();
-                    scanner.nextLine();
-                    break;
-                default:
-                    break;
-            }
+                        System.out.print(messages.getString("emailPrompt"));
+                        mail = scanner.next();
+                        scanner.nextLine();
+                        break;
+                    default:
+                        System.out.println(messages.getString("invalidSelecction"));
+                        break;
+                }
 
-            Contact contact = new Contact(mail, number);
-            User user = new User(name, identifier, contact);
-            System.out.println();
-            
-            do {
+                Contact contact = new Contact(mail, number);
+                User user = new User(name, identifier, contact);
+                System.out.println();
+
                 System.out.println(messages.getString("chooseDateTime"));
 
                 System.out.print(messages.getString("datePrompt"));
@@ -213,27 +218,23 @@ public class Reservation {
                     } else {
                         System.out.println(messages.getString("reservationSuccessful"));
                         newReservation.sendConfirmation();
+                        socialNetwork.shareLink();
                     }
                 } else {
                     System.out.println(messages.getString("errorDeleteInputFile"));
                 }
-
-                System.out.println();
-                System.out.println(messages.getString("anotherReservation"));
-                option = scanner.nextInt();
-
-            } while (option == 1);
-        }
+            }
         return confirmationReservation;
     }
 
     /**
      * Send a booking confirmation by email to the user.
-     * 
-     * <p>This method uses the JavaMail API to send a confirmation email to the 
-     * email address provided. The email contains information about the 
+     *
+     * <p>
+     * This method uses the JavaMail API to send a confirmation email to the
+     * email address provided. The email contains information about the
      * reservation made in the reservation system of sports venues.</p>
-     * 
+     *
      */
     public void sendConfirmation() {
         // Dirección de correo y credenciales
@@ -272,7 +273,6 @@ public class Reservation {
         }
     }
 
-    
     @Override
     public String toString() {
         return "Reservation " + "date: " + date + ", time: " + time
