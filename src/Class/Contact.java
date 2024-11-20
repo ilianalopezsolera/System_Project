@@ -1,5 +1,15 @@
 package Class;
 
+/**
+ * Represents contact information, including email and phone number.
+ * <p>This class provides the basic structure to store and manage a person's 
+ * contact details such as email and phone number.</p>
+ * 
+ * @author Meylin Lopez
+ * @author Carlos Rodriguez
+ * @author Dilan Gonzales
+ * @author Reychell Acuña
+ */
 public class Contact {
 
     private String mail;
@@ -30,6 +40,17 @@ public class Contact {
         this.phone = phone;
     }
 
+    /**
+     * Returns a string representation of the object containing mail and phone 
+     * attributes.
+     * 
+     * <p>This method overrides the default toString method to provide a custom 
+     * string representation of the object, showing the mail and phone 
+     * attributes.</p>
+     * 
+     * @return a string representing the object with the format:
+     * "mail: [mail], phone: [phone]"
+     */
     @Override
     public String toString() {
         return "mail: " + mail + ", phone: " + phone;

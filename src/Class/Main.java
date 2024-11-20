@@ -5,12 +5,28 @@ import java.util.ResourceBundle;
 import java.util.Locale;
 
 /**
- *
- * @author ilico
+ * Main class for managing the reservation system.
+ * <p>
+ * This class contains the main method to launch the reservation system and 
+ * provides an interface for both users and administrators to interact with 
+ * the system. The system allows users to make reservations, view available 
+ * spaces, and manage their history, while administrators can manage sports 
+ * spaces, verify passwords, and manage reservations.
+ * </p>
+ * 
+ * @author Meylin Lopez
+ * @author Carlos Rodriguez
+ * @author Dilan Gonzales
+ * @author Reychell Acuña
  */
 public class Main {
 
-    /**
+     /**
+     * Main method that runs the reservation system, providing the user the option to log in as a 
+     * regular user or administrator.
+     * <p>Based on user input, it allows the user to create reservations, manage them, or view available spaces. 
+     * Administrators have additional privileges to register, delete spaces, and manage reservations.</p>
+     * 
      * @param args the command line arguments
      */
     public static void main(String[] args) {

@@ -2,6 +2,16 @@ package Class;
 
 import java.util.*;
 
+/**
+ * Represents a reservation system for managing sport spaces, verifying 
+ * administrator access, and handling reservations. The system stores a list 
+ * of sport spaces, a list of administrators, and a list of reservations.
+ * 
+ * @author Meylin Lopez
+ * @author Carlos Rodriguez
+ * @author Dilan Gonzales
+ * @author Reychell Acuña
+ */
 public class ReservationSystem {
 
     private SportSpace[] spaces = new SportSpace[10];
@@ -43,6 +53,21 @@ public class ReservationSystem {
         this.reservation = reservation;
     }
 
+    /**
+     * Verify the password entered by the user by comparing it with the 
+     * administrators cards. The user has a limited number of attempts to enter 
+     * the correct password.
+     * 
+     * <p>If the card entered is correct, the system welcomes the corresponding
+     * administrator. If it is incorrect, a limited number of attempts are 
+     * allowed.</p>
+     * 
+     * @param adminList An array of Admin objects that contains the list of 
+     * administrators.
+     * @param language the language used for interaction (e.g., "es" for Spanish)
+     * @return true if the card entered coincides with one of the administrators;
+     * false if attempts have timed out or the password is incorrect.
+     */
     public boolean verifyPassword(Admin[] adminList, String language) {
         String password;
         int attempts = 3;

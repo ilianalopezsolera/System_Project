@@ -10,6 +10,13 @@ import java.util.*;
 import java.util.ResourceBundle;
 import java.util.Locale;
 
+/**
+ * Represents an administrator in the system.
+ * 
+ * <p>The Admin class extends from Person and contains the administrator's 
+ * information such as ID, and provides methods for registering, deleting, 
+ * and viewing sports spaces and reservations.</p>
+ */
 public class Admin extends Person {
 
     private String ID;
@@ -31,6 +38,12 @@ public class Admin extends Person {
         this.ID = ID;
     }
 
+    /**
+     * Creates and returns an array of objects of type Admin, which represents a
+     * list of administrators with their respective data.
+     * 
+     * @return  an array of 4 Admin objects.
+     */
     public Admin[] adminList() {
         Admin[] administrators = new Admin[4];
         Contact contact1 = new Contact("meylin.lopez@ucr.ac.cr", 63158845);
@@ -49,6 +62,16 @@ public class Admin extends Person {
         return administrators;
     }
 
+    /**
+     * Registers information about sports spaces and saves it to a file.
+     * 
+     * <p>This method prompts the user to input details about a number of sports
+     * spaces (e.g., name, type, date, and time) and writes this information 
+     * into a file named "Calendario reservas.txt". It uses a ResourceBundle to
+     * display messages in the specified language.</p>
+     * 
+     * @param language the language code for the messages 
+     */
     public void registerSpaces(String language) {
         int numberSpaces;
         ResourceBundle messages = ResourceBundle.getBundle("messages", new Locale(language));
@@ -91,9 +114,16 @@ public class Admin extends Person {
         }
     }
 
-    public void modifySpaces() {
-    }
-
+    /**
+     * Deletes specific sports spaces from the reservations file.
+     * 
+     * <p>This method allows the user to remove records of sports spaces stored 
+     * in "Calendario reservas.txt" based on the space's name, date, and time.
+     * It uses a temporary file to store all records except the ones matching 
+     * the criteria, then replaces the original file with the filtered data.</p>
+     * 
+     * @param language the language code for the messages displayed to the user 
+     */
     public void deleteSpaces(String language) {
         int numberSpaces = 0;
         Scanner scanner = new Scanner(System.in);
@@ -154,6 +184,16 @@ public class Admin extends Person {
         }
     }
 
+    /**
+     * Displays the list of reservations stored in the system's history file.
+     * 
+     * <p>This method reads the content of the 
+     * file "Historial sistema de reservas.txt" line by line and prints it to
+     * the console.It uses a ResourceBundle to handle messages in the specified 
+     * language.</p>
+     * 
+     * @param language the language code for displaying messages. 
+     */
     public void seeListReservation(String language) {
         ResourceBundle messages = ResourceBundle.getBundle("messages", new Locale(language));
         try {
@@ -171,6 +211,16 @@ public class Admin extends Person {
         }
     }
 
+    /**
+     * Displays the list of registered sports spaces from the reservations file.
+     * 
+     * <p>This method reads the content of the file "Calendario reservas.txt" 
+     * line by line and prints it to the console. It uses a ResourceBundle to 
+     * handle messages in the specified language, including a header introducing
+     * the list and an error message in case of file issues.</p>
+     * 
+     * @param language the language code for displaying messages. 
+     */
     public void seeSportSpaces(String language) {
         ResourceBundle messages = ResourceBundle.getBundle("messages", new Locale(language));
         
@@ -188,6 +238,17 @@ public class Admin extends Person {
         }
     }
 
+    /**
+     * Prompts the user to select a language for the system.
+     * 
+     * <p>This method displays a menu with three language options: Español 
+     * (Spanish), Français (French), and Italiano (Italian). It returns the 
+     * corresponding language code ("es", "fr", or "it"). If the user enters an 
+     * invalid option, the default language ("es") is selected.</p>
+     * 
+     * @return the language code selected by the user 
+     * ("es" for Spanish, "fr" for French, "it" for Italian).
+     */
     @Override
     public String chooseLanguage() {
         Scanner scanner = new Scanner(System.in);
@@ -209,6 +270,15 @@ public class Admin extends Person {
         return language;
     }
 
+    /**
+     * Returns a string representation of the Admin object.
+     * 
+     * <p>This method overrides the default toString method to provide a custom 
+     * string representation of an Admin object, showing its type and ID.</p>
+     * 
+     * @return a string representing the Admin object in the format: 
+     * "Admin ID: [ID]"
+     */
     @Override
     public String toString() {
         return "Admin " + "ID: " + ID;

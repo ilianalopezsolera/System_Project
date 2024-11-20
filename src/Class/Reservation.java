@@ -13,6 +13,17 @@ import javax.mail.internet.*;
 import java.util.ResourceBundle;
 import java.util.Locale;
 
+/**
+ * Represents a reservation made for a sport space. This class stores the 
+ * details of a reservation, including the date, time, space name, user 
+ * information, and confirmation status. It also provides methods for creating 
+ * reservations and sending booking confirmations.
+ * 
+ * @author Meylin Lopez
+ * @author Carlos Rodriguez
+ * @author Dilan Gonzales
+ * @author Reychell Acuña
+ */
 public class Reservation {
 
     private String date;
@@ -77,6 +88,18 @@ public class Reservation {
         this.user = user;
     }
 
+    /**
+     * Creates a reservation for a given sport space if it's available.
+     * 
+     * <p>This method allows a user to create a reservation for a sport space 
+     * by entering their details and selecting a date and time. The reservation 
+     * details are then saved to the history file and the space's availability 
+     * is updated in the calendar file.</p>
+     * 
+     * @param sportSpace the sport space to reserve
+     * @param language the language used for interaction (e.g., "es" for Spanish)
+     * @return true if the reservation was successful, false otherwise
+     */
     public boolean createReservation(SportSpace sportSpace, String language) {
         Scanner scanner = new Scanner(System.in);
         boolean confirmationReservation = false;
@@ -204,6 +227,14 @@ public class Reservation {
         return confirmationReservation;
     }
 
+    /**
+     * Send a booking confirmation by email to the user.
+     * 
+     * <p>This method uses the JavaMail API to send a confirmation email to the 
+     * email address provided. The email contains information about the 
+     * reservation made in the reservation system of sports venues.</p>
+     * 
+     */
     public void sendConfirmation() {
         // Dirección de correo y credenciales
         String to = "dilangonzalez2517@gmail.com"; // Cambia esto con el destinatario

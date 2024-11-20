@@ -10,6 +10,16 @@ import java.util.Scanner;
 import java.util.ResourceBundle;
 import java.util.Locale;
 
+/**
+ * The User class extends Person and represents a user in the system who can
+ * interact with the reservation system to view available spaces, check their 
+ * reservation history, and delete reservations.
+ * 
+ * @author Meylin Lopez
+ * @author Carlos Rodriguez
+ * @author Dilan Gonzales
+ * @author Reychell Acuña
+ */
 public class User extends Person {
 
     public User() {
@@ -23,6 +33,25 @@ public class User extends Person {
         super(name, carnet, contact);
     }
 
+    /**
+     * Displays a list of available sport spaces from the reservation calendar.
+     *
+     * <p>
+     * This method provides the user with two options to view the available
+     * sport spaces. The user can either view all the available spaces or search
+     * for a specific space by its name. The method reads from the "Calendario
+     * reservas.txt" file to fetch the relevant data.</p>
+     *
+     * <p>
+     * The options are as follows:</p>
+     * <ol>
+     * <li>Option 1: Display all available sport spaces.</li>
+     * <li>Option 2: Search and display available spaces by name.</li>
+     * </ol>
+     *
+     * @param language The language code to load the appropriate messages for
+     * the user.
+     */
     public void seeAvailableList(String language) {
         Scanner scanner = new Scanner(System.in);
         ResourceBundle messages = ResourceBundle.getBundle("messages", new Locale(language));
@@ -33,8 +62,7 @@ public class User extends Person {
 
         switch (option) {
             case 1:
-                try(BufferedReader reader = new BufferedReader
-                (new FileReader("Calendario reservas.txt"))) {
+                try (BufferedReader reader = new BufferedReader(new FileReader("Calendario reservas.txt"))) {
 
                     String line;
 
@@ -50,8 +78,7 @@ public class User extends Person {
                 System.out.print(messages.getString("spaceNamePrompt"));
                 String nameSpace = scanner.nextLine();
 
-                try(BufferedReader reader = new BufferedReader
-                (new FileReader("Calendario reservas.txt"))) {
+                try (BufferedReader reader = new BufferedReader(new FileReader("Calendario reservas.txt"))) {
 
                     String line;
 
@@ -70,17 +97,36 @@ public class User extends Person {
         }
     }
 
+    /**
+     * Displays the reservation history for a user based on their identifier.
+     *
+     * <p>
+     * This method allows the user to view their reservation history by
+     * searching through the "Historial sistema de reservas.txt" file. The user
+     * can search for their reservations either by carnet (ID) or by a specific
+     * identifier depending on the selected option.</p>
+     *
+     * <p>
+     * The options are as follows:</p>
+     * <ol>
+     * <li>Option 1: Search by carnet (ID) number.</li>
+     * <li>Option 2: Search by a user-specific identifier (ID).</li>
+     * </ol>
+     *
+     * @param language The language code to load the appropriate messages for
+     * the user.
+     */
     public void viewHistory(String language) {
         ResourceBundle messages = ResourceBundle.getBundle("messages", new Locale(language));
         Scanner scanner = new Scanner(System.in);
         boolean found = false;  // Para verificar si encontramos alguna reserv
         String identifier = "";
-        
+
         System.out.println(messages.getString("reserveAs"));
         int option = scanner.nextInt();
         scanner.nextLine();
-        
-        switch(option){
+
+        switch (option) {
             case 1:
                 System.out.print(messages.getString("carnetPrompt"));
                 identifier = scanner.next();
@@ -94,9 +140,8 @@ public class User extends Person {
             default:
                 break;
         }
-        
-        try(BufferedReader reader = new BufferedReader
-        (new FileReader("Historial sistema de reservas.txt"))) {
+
+        try (BufferedReader reader = new BufferedReader(new FileReader("Historial sistema de reservas.txt"))) {
 
             String line;
 
@@ -115,6 +160,36 @@ public class User extends Person {
         }
     }
 
+    /**
+     * Deletes a reservation based on the user's input and specific identifiers.
+     *
+     * <p>
+     * This method allows a user to delete a reservation from the "Historial
+     * sistema de reservas.txt" file. The user can delete reservations by
+     * providing specific details such as the carnet, space name, date, and
+     * time. The process ensures the original file is updated with the remaining
+     * reservations by creating a temporary file, omitting the targeted
+     * reservation, and replacing the original file.</p>
+     *
+     * <p>
+     * The user has the following options:</p>
+     * <ol>
+     * <li>Option 1: Delete a reservation by searching with the carnet
+     * (ID).</li>
+     * <li>Option 2: Delete a reservation using a user-specific identifier
+     * (ID).</li>
+     * <li>Option 3: Exit without making any changes.</li>
+     * </ol>
+     *
+     * <p>
+     * During the process, the system checks each line in the reservation
+     * history file. If a line matches the provided details, it is excluded from
+     * the updated file. If any errors occur during file operations, appropriate
+     * error messages are displayed.</p>
+     *
+     * @param language The language code to load localized messages for user
+     * interaction. Examples: "en" for English, "es" for Spanish.
+     */
     public void deleteReservation(String language) {
         Scanner scanner = new Scanner(System.in);
         String carnet;
@@ -123,7 +198,7 @@ public class User extends Person {
         String time;
         String nameSpace;
         File inputFile = new File("Historial sistema de reservas.txt");
-                File tempFile = new File("tempFile.txt");
+        File tempFile = new File("tempFile.txt");
         ResourceBundle messages = ResourceBundle.getBundle("messages", new Locale(language));
 
         System.out.println(messages.getString("reserveAs"));
@@ -148,8 +223,7 @@ public class User extends Person {
                 time = scanner.next();
                 scanner.nextLine();
 
-                try (BufferedReader br = new BufferedReader(new FileReader(inputFile));
-                    BufferedWriter bw = new BufferedWriter(new FileWriter(tempFile))) {
+                try (BufferedReader br = new BufferedReader(new FileReader(inputFile)); BufferedWriter bw = new BufferedWriter(new FileWriter(tempFile))) {
 
                     String line;
 
@@ -199,8 +273,7 @@ public class User extends Person {
                 time = scanner.next();
                 scanner.nextLine();
 
-                try (BufferedReader br = new BufferedReader(new FileReader(inputFile));
-                    BufferedWriter bw = new BufferedWriter(new FileWriter(tempFile))) {
+                try (BufferedReader br = new BufferedReader(new FileReader(inputFile)); BufferedWriter bw = new BufferedWriter(new FileWriter(tempFile))) {
 
                     String line;
 
@@ -236,11 +309,23 @@ public class User extends Person {
             case 3:
                 break;
             default:
-                
+
                 break;
         }
     }
 
+    /**
+     * Prompts the user to select a language for the system.
+     *
+     * <p>
+     * This method displays a menu with three language options: Español
+     * (Spanish), Français (French), and Italiano (Italian). It returns the
+     * corresponding language code ("es", "fr", or "it"). If the user enters an
+     * invalid option, the default language ("es") is selected.</p>
+     *
+     * @return the language code selected by the user ("es" for Spanish, "fr"
+     * for French, "it" for Italian).
+     */
     @Override
     public String chooseLanguage() {
         Scanner scanner = new Scanner(System.in);
@@ -248,7 +333,7 @@ public class User extends Person {
         System.out.println("1. Español \n2. Français \n3. Italiano");
         int languageOption = scanner.nextInt();
         scanner.nextLine();
-        
+
         String language = switch (languageOption) {
             case 1 ->
                 "es"; // Español

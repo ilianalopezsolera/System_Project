@@ -12,8 +12,14 @@ import java.util.ResourceBundle;
 import java.util.Locale;
 
 /**
- *
- * @author ilico
+ * Represents a sport space with details such as name, type, availability, 
+ * date, and time. The class provides methods to check and display the 
+ * availability of sport spaces.
+ * 
+ * @author Meylin Lopez
+ * @author Carlos Rodriguez
+ * @author Dilan Gonzales
+ * @author Reychell Acuña
  */
 public class SportSpace {
 
@@ -78,6 +84,18 @@ public class SportSpace {
         this.time = time;
     }
 
+    /**
+     * Displays the available sport spaces from the provided list of sport spaces.
+     * This method checks the availability status of each space and prints the 
+     * details of those that are available.
+     * 
+     * <p>The method iterates through the array of `SportSpace` objects, 
+     * and for each space with an availability status set to true, it prints the
+     * information of that space to the console.</p>
+     * 
+     * @param sportSpaces An array of `SportSpace` objects representing the 
+     * available sport spaces to be checked. 
+     */
     public void showAvailability(SportSpace[] sportSpaces) {
         for (int i = 0; i < sportSpaces.length; i++) {
             if (sportSpaces[i].availability = true) {  // Verifica si el espacio está disponible
@@ -86,6 +104,22 @@ public class SportSpace {
         }
     }
 
+    /**
+     * Checks the availability of a specific sport space by its name and displays
+     * the available reservation details.
+     * 
+     * <p>This method searches for a given sport space in the reservation 
+     * calendar file. If the space is available (indicated by the status "true"),
+     * the method prints the corresponding reservation details to the 
+     * console.</p>
+     * 
+     * @param spaceName The name of the sport space to check availability for.
+     * @param language  The language code to load the appropriate messages 
+     * for the user.
+     * @return A boolean value indicating whether the requested space is 
+     * available. Returns true if the space is available, and false if no 
+     * available spaces are found.
+     */
     public boolean seeAvailability(String spaceName, String language) {
         boolean found = false;  // Variable para registrar si encuentra espacios disponibles
         ResourceBundle messages = ResourceBundle.getBundle("messages", new Locale(language));

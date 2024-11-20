@@ -1,5 +1,22 @@
 package Class;
 
+/**
+ * Represents a person in the system with common attributes such as name,
+ * identifier, carnet, and contact.
+ * <p>
+ * This class is abstract, meaning it cannot be instantiated directly. It must
+ * be extended by other classes that provide specific implementations for each
+ * type of person (e.g., User or Admin).
+ * </p>
+ *
+ * @see User
+ * @see Admin
+ * 
+ * @author Meylin Lopez
+ * @author Carlos Rodriguez
+ * @author Dilan Gonzales
+ * @author Reychell Acuña
+ */
 public abstract class Person implements Language {
 
     private String name;
@@ -65,6 +82,5 @@ public abstract class Person implements Language {
     public String toString() {
         return "name: " + name + ", identifier: " + IDPerson + ", contact " + contact;
     }
-    
-    
+
 }
