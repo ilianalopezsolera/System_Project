@@ -46,22 +46,26 @@ public class ReservationSystem {
     public boolean verifyPassword(Admin[] adminList, String language) {
         String password;
         int attempts = 3;
+        int contAttempts = 1;
         Scanner scanner = new Scanner(System.in);
         ResourceBundle messages = ResourceBundle.getBundle("messages", new Locale(language));
         do {
-            System.out.println(messages.getString("intent")+ attempts);
+            System.out.println(messages.getString("intent") + contAttempts);
             System.out.print(messages.getString("enterPassword"));
             password = scanner.next();
             scanner.nextLine();
 
             for (int i = 0; i < adminList.length; i++) {
                 if (adminList[i].getCarnet().equalsIgnoreCase(password)) {
+                    System.out.println();
                     System.out.println(messages.getString("welcome") + adminList[i].getName());
+                    System.out.println();
                     return true;
                 }
             }
             System.out.println(messages.getString("invalidPassword"));
             attempts--;
+            contAttempts++;
         } while (attempts > 0);
         return false;
     }

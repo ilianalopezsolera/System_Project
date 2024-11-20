@@ -142,7 +142,8 @@ public class Reservation {
 
             Contact contact = new Contact(mail, number);
             User user = new User(name, identifier, contact);
-
+            System.out.println();
+            
             do {
                 System.out.println(messages.getString("chooseDateTime"));
 

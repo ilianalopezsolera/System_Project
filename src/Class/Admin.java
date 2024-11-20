@@ -56,26 +56,27 @@ public class Admin extends Person {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter("Calendario reservas.txt", true))) {
 
             Scanner scanner = new Scanner(System.in);
-
-            System.out.println(messages.getString("numRegisterSpaces"));
+            
+            System.out.println();
+            System.out.print(messages.getString("numRegisterSpace"));
             numberSpaces = scanner.nextInt();
             scanner.nextLine();
 
             for (int i = 0; i < numberSpaces; i++) {
-                System.out.print(messages.getString("register") + (i+1) + ":");
+                System.out.println(messages.getString("register") + (i+1) + ":");
 
-                System.out.println(messages.getString("spaceNamePrompt"));
+                System.out.print(messages.getString("spaceNamePrompt"));
                 String name = scanner.nextLine();
 
-                System.out.println(messages.getString("typeSpace"));
+                System.out.print(messages.getString("typeSpace"));
                 String type = scanner.next();
                 scanner.nextLine();
 
-                System.out.println(messages.getString("datePromp"));
+                System.out.print(messages.getString("datePrompt"));
                 String date = scanner.next();
                 scanner.nextLine();
 
-                System.out.println(messages.getString("timePrompt"));
+                System.out.print(messages.getString("timePrompt"));
                 String time = scanner.next();
                 scanner.nextLine();
 
